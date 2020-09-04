@@ -6,7 +6,7 @@ def make_array_from_list(some_list):
 
 
 def make_array_from_number(num):
-    return np.array(list(range(num, num+1)))
+    return np.array([num])
 
 
 class NumpyBasics:
@@ -23,4 +23,4 @@ class NumpyBasics:
         return np.dot(a, b)
 
     def dot_1d_array_2d_array(self, a, m):
-        return m.dot(a)
+        return a.dot(m)
