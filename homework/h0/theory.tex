@@ -1,0 +1,97 @@
+\section{\enfr{Theoretical Part}{Partie Théorique} \points{6}{6}}
+\instruct{%
+\enfr{This part of the homework will not be graded for correctness. 
+You will still need to provide an answer and properly annotate it on Gradescope. 
+You get  1 point for each answer that you properly annotate, even if the answer itself is incorrect.
+We will provide you with solutions which you can use to check your answers. 
+The goal is for you to
+i) practice the process of annotating answers to questions on Gradescope and,
+ii) get an idea of what kind of basic math we will need during the class.
+If you are having trouble answering these questions you might be missing some important prerequisite knowledge for this class.}%
+{ Cette partie du devoir ne sera pas notée.
+Vous devez cependant fournir une réponse et l'annotée correctement sur Gradescope.
+Vous recevez 1 point pour chaque réponse que vous annotez correctement, même si la réponse n'est pas juste.
+Nous vous fournirons des solutions que pourrez utiliser pour vérifier vos réponses.
+Le but est que vous puissiez :
+i) vous familiariser avec le processus d'annotation de réponses sur Gradescope, et
+ii) obtenir une idée du genre de bases mathématiques nécessaires pour ce cours.
+Si vous avez des difficulté à répondre à ces questions, il vous manque peut être des pré-requis important pour suivre ce cours.}}
+\begin{enumerate}
+
+\item \points{1}{1}
+\enfr{Let $X$ be a random variable representing the outcome of a single roll of a 6-sided dice.
+Show the steps for the calculation of
+i) the expectation of $X$ and
+ii) the variance of $X$.}%
+{Soit $X$ une variable aléatoire représentant le résultat d'un lancer de dé à 6 faces. Montrez les étapes pour le calcul de 
+i) l'espérance de $X$ et
+ii) la variance de $X$.}
+
+\begin{enumerate}[i)]
+    \item $$E[X] = \sum_{i=1}^{6}P(X=i)*i = \left(\frac{1}{6}*1 + \frac{1}{6}*2 + \ldots + \frac{1}{6}*6\right) = 3.5$$
+    \item $$V[X] = E[X^2] - (E[X])^2 = \sum_{i=1}^{6}P(X=i)*i^2 - (3.5)^2$$ $$ = \left(\frac{1}{6}*1^2 + \frac{1}{6}*2^2 + \ldots + \frac{1}{6}*6^2\right) - (3.5)^2 = {\frac{105}{36}}$$
+\end{enumerate}
+
+\item \points{1}{1}
+\enfr{Let $u,v\in \mathbb{R}^d$ be two vectors and let $A\in\mathbb{R}^{n\times d}$ be a matrix. Give the formulas for the euclidean norm of $u$, for the euclidean inner product~(aka dot product) between $u$ and $v$, and for the matrix-vector product $Au$.}%
+{Soit $u,v\in \mathbb{R}^d$ deux vecteurs et soit $A\in\mathbb{R}^{n\times d}$ une matrice. Donnez la formule pour la norme euclidienne de $u$, pour le produit scalaire euclidien (dot product) de $u$ et $v$, et pour le produit matrice-vecteur $Au$}
+
+\begin{enumerate}[i)]
+    \item $$\| u\| = \sqrt{u_1^2 + u_2^2 + \ldots + u_d^2} $$
+    \item $$<u, v> = \sqrt{u_1*v_1 + u_2*v_2 + \ldots + u_d*v_d} $$
+    \item $$A*u = a_{11}*u_1 + a_{12}*u_2 + a_{1d}*u_d + \ldots + a_{nd}*u_d$$
+\end{enumerate}
+
+\item \points{1}{1}
+Consider the two algorithms below. What do they compute and which algorithm is faster? \\
+\textit{Observez les deux algorithms ci-dessous. Que calculent-ils et lequel est le plus rapide ?}
+
+\begin{tabular}{ll}
+\textbf{ALGO1}(n) \hspace{4cm} & \textbf{ALGO2}(n) \\
+\texttt{result = $0$}     &  \texttt{return $(n+1)*n/2$}  \\ 
+\texttt{for $i=1\dots n$} & \\
+\texttt{\ \ result = result + $i$  } & \\
+\texttt{return result} &
+\end{tabular}
+
+\begin{itemize}
+    \item Both algorithms calculate the sum of every integer from 1 to $n$. Where $n$ is the only parameter passed to the 2 algorithms. \\ ALGO2 will be quicker with a time complexity of $\mathcal{O}({1})$ since it performs a single operation (composed of several mathematical operations), compared to ALGO1 which has a time complexity of $\mathcal{O}({n})$ since it is implemented with a loop.
+\end{itemize}
+
+\item \points{1}{1}
+\enfr{Give the step-by-step derivation of the following derivatives:}%
+{Donnez les étapes de calculs des dérivées suivantes:}
+$$
+  \textrm{i)} \quad \frac{df}{dx}=?, \quad \textrm{where}\  f(x,\beta) = x^2 \exp{(-\beta x)} 
+$$
+$$
+  \textrm{ii)} \quad \frac{df}{d\beta}=?, \quad \textrm{where}\  f(x,\beta) = x \exp{(-\beta x)} 
+$$
+$$
+  \textrm{iii)} \quad \frac{df}{dx}=?, \quad \textrm{where}\  f(x) = \sin{(\exp{(x^2)})} 
+$$
+
+\begin{enumerate}[i)]
+    \item \begin{align*}
+        \frac{d}{dx}(x^2 \exp{(-\beta x)}) = 2xe^{-\beta x} - \beta x^2e^{-\beta x} 
+        \end{align*}
+    \item \begin{align*}
+        \frac{d}{d\beta}(x \exp{(-\beta x)}) = -x^2e^{-\beta x}
+        \end{align*}
+    \item \begin{align*}
+        \frac{d}{dx}(\sin{(\exp{(x^2)})}) = 2xe^{x^2}cos(e^{x^2})
+        \end{align*}
+\end{enumerate}
+
+
+\item \points{1}{1}
+\enfr{Let $X\sim N(\mu,1)$, that is the random variable $X$ is distributed according to a Gaussian with mean $\mu$ and standard deviation $1$.
+Show how you can calculate the second moment of $X$, given by $\mathbb{E}[X^2]$.}%
+{Soit $X\sim N(\mu,1)$, c'est à dire que $X$ est une variable aléatoire suivant une distribution gaussienne de moyenne $\mu$ et d'écart-type $1$. Montrez comment calculer le second moment de $X$, donné par $\mathbb{E}[X^2]$.}
+
+\begin{enumerate}[i)]
+    \item $$E[X^2] = V(X) + E[X]^2 = 1^2 - \mu^2$$
+\end{enumerate}
+
+
+\end{enumerate}

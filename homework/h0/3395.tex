@@ -1,0 +1,46 @@
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,french,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{graphicx}
+\makeatletter
+\usepackage{etoolbox}
+
+%%%%%%%%% STUDENTS CHANGE THIS
+
+\providetoggle{undergrad}
+\settoggle{undergrad}{true}     %%% "true" si vous etes dans 3395 ou "false" si 6390
+
+\providetoggle{french}
+\settoggle{french}{false}        %%% "true" si vous voulez la version francaise ou "false" si anglaise
+
+\providetoggle{final}         %%% "true" pour la version finale de votre soumission (ca enleve les instructions) 
+\settoggle{final}{false}
+
+%%%%%%%%%%%%%%%%%%%%% ^^^^^
+\input{0/commands}
+
+\begin{document}
+
+\setlength{\parskip}{0.3cm} \setlength{\parindent}{0cm}
+
+\begin{center}
+\textbf{\proftitle{IFT 3395 Fondements de l'apprentissage machine \\ Prof. Guillaume Rabusseau}{IFT 6390 Fundamentals of Machine Learning \\ Ioannis Mitliagkas}}
+\par\end{center}{\large \par}
+
+\begin{center}
+\textbf{\LARGE{\enfr{Homework 0}{Devoir 0}}}
+\par\end{center}{\LARGE \par}
+
+
+\input{0/instructions}
+
+\input{0/theory}
+
+\input{0/practical}
+
+\end{document}
