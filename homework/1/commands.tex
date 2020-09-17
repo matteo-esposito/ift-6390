@@ -1,0 +1,47 @@
+\newcommand{\points}[2]{\iftoggle{undergrad}{{\color{red}[#1 points]}}{{\color{red}[#2 points]}}}
+\newcommand{\enfr}[2]{\iftoggle{french}{#2}{#1}}
+\newcommand{\instruct}[1]{\iftoggle{final}{}{#1}}
+\newcommand{\proftitle}[2]{\iftoggle{undergrad}{#1}{#2}}
+% \newcommand{\question}[1]{\\ \textbf{Question.} #1}
+
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+\makeatother
+
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\makeatletter
+\addto\extrasfrench{%
+   \providecommand{\og}{\leavevmode\flqq~}%
+   \providecommand{\fg}{\ifdim\lastskip>\z@\unskip\fi~\frqq}%
+}
+
+\makeatother
+
+
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{todonotes}
+\newcommand{\ioannis}[1]{\todo[inline,color=green!40,caption={}]{{\it Ioannis:~}#1}}
+\newcommand{\guillaume}[1]{\todo[inline,color=blue!40,caption={}]{{\it Guillaume:~}#1}}
+
+\newcommand{\gradpoints}[1]{\textcolor{red}{Graduates #1 pts}}
+\newcommand{\undergradpoints}[1]{\textcolor{orange}{Undergraduates #1 pts}}
+
+
+
+
+% Switch this to false to hide answers
+\iftrue
+\newcommand{\answer}[1]{\\ \textbf{Answer.} #1 }
+\else 
+\newcommand{\answer}[1]{}
+\fi
+
+\usepackage[colorlinks=true]{hyperref}
+
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\ith}[1]{^{(#1)}}

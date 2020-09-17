@@ -1,0 +1,259 @@
+\documentclass[11pt,french,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{graphicx}
+
+
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\makeatletter
+\addto\extrasfrench{%
+   \providecommand{\og}{\leavevmode\flqq~}%
+   \providecommand{\fg}{\ifdim\lastskip>\z@\unskip\fi~\frqq}%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{etoolbox}
+\input{commands}
+
+%%%%%%%%% STUDENTS CHANGE THIS
+
+\providetoggle{undergrad}
+\settoggle{undergrad}{true}     %%% "true" if 3395 or "false" if 6390
+
+\providetoggle{french}
+\settoggle{french}{true}        %%% "true" if french or "false" if english
+
+\providetoggle{final}            
+\settoggle{final}{false}        %%% "true" for your final homework submission (removes instructions)
+
+
+
+\newcommand{\question}[1]{\\ \textbf{Question.} #1 }
+
+
+
+\usepackage[colorlinks=true]{hyperref}
+
+
+
+\begin{document}
+
+\setlength{\parskip}{0.3cm} \setlength{\parindent}{0cm}
+
+\begin{center}
+\textbf{\proftitle{IFT 3395 Fondements de l'apprentissage machine \\ Prof. Guillaume Rabusseau}{IFT 6390 Fundamentals of Machine Learning \\ Ioannis Mitliagkas}}
+\par\end{center}{\large \par}
+
+\begin{center}
+\textbf{\LARGE{\enfr{Homework 1 - Practical component}{Devoir 1 - Partie pratique}}} \\
+\par\end{center}{\LARGE \par}
+
+
+
+\paragraph{}
+\instruct{%
+\begin{itemize}
+\item \enfr{This homework must be done and submitted to Gradescope individually.
+You are welcome to discuss with other students  \emph{but the solution and code you submit must be your own}.
+Note that we will use Gradescope's plagiarism detection feature.
+All suspected cases of plagiarism will be recorded and shared with university officials for further handling.}%
+{Ce devoir doit être fait et envoyé sur Gradescope individuellement. Vous pouvez discuter avec d'autres étudiants \emph{mais les réponses et le code que vous soumettez doivent être les vôtres}. A noter que nous utiliserons l'outil de détection de plagiat de Gradescope. Tous les cas suspectés de plagiat seront enregistrés et transmis à l'Université pour vérification.}
+
+\item \enfr{The practical part should be coded in python (you can use the numpy and matplotlib libraries) and all code will be submitted as a python file to Gradescope. To enable automated code grading you should work off of the template file given in this homework folder. Do not modify the name of the file or any of the function signatures of the template file or the code grading will not work for you. You may, of course, add new functions and any regular python imports.}%
+{La partie pratique doit être codée en python (avec les librairies numpy et matplotlib), et envoyée sur Gradescope sous fichier python. Pour permettre l'évaluation automatique, vous devez travailler directement sur le modèle donné dans le répertoire de ce devoir. Ne modifiez pas le nom du fichier ou aucune des fonctions signatures, sinon l'évaluation automatique ne fonctionnera pas. Vous pouvez bien sur ajouter de nouvelles fonctions et importations python}
+
+\item \enfr{Any graphing, charts, or practical report parts should be submitted in a pdf to Gradescope.
+For the report it is recommended to use a Jupyter notebook, writing math with MathJax and export as pdf.
+You may alternatively write your report in \LaTeX{}; \LyX{}; Word.
+In any case, you should export your report to a pdf file that you will submit.
+You are of course encouraged to draw inspiration from what was done in lab sessions.}%
+{Les figures, courbes et parties pratiques du rapport doivent être envoyées au format pdf sur Gradescope. Pour le rapport il est recommandé d'utiliser un Jupyter notebook, en écrivant les formules mathématiques avec MathJax et en exportant vers pdf. Vous pouvez aussi écrire votre rapport en \LaTeX{}; \LyX{}; Word. Dans tout les cas, exportez votre rapport vers un fichier pdf que vous enverrez. Vous êtes bien sur encouragés à vous inspirer de ce qui a été fait en TP.}
+\end{itemize}
+
+
+
+\enfr{You should work off of the template file \texttt{solution.py} in the project and fill in the basic numpy functions using numpy and python methods}%
+{Vous devez travailler sur le modèle \texttt{solution.py} du répertoire et compléter les fonctions basiques suivantes en utilisant numpy et python}%
+}
+
+
+\section*{\enfr{Parzen with soft windows (kernels)}{Parzen avec fenêtre continue}}
+
+\enfr{In this Homework we will use \emph{banknote authentication Data Set} as a toy dataset. It contains 1372 samples (one for each row), each with 4 features (the 4 first columns) and one label in \{0,1\} (the 5th column). It is recommended you download it \href{https://archive.ics.uci.edu/ml/machine-learning-databases/00267/data_banknote_authentication.txt}{here} and then test your code by importing it like this :}%
+{Pour ce devoir nous utiliserons le dataset \emph{banknote authentication} comme exemple. Il contient 1372 points (un par rangée), chacun avec 4 attributs (les 4 premières colonnes) et un label dans \{0,1\} (la 5ème colonne). Il est recommandé de le télécharger \href{https://archive.ics.uci.edu/ml/machine-learning-databases/00267/data_banknote_authentication.txt}{ici} puis de tester votre code en l'important comme ceci :}
+\begin{lstlisting}
+import numpy as np
+banknote = np.genfromtxt('data_banknote_authentication.txt',
+                         delimiter=',')
+\end{lstlisting}
+\enfr{When the answer template in \emph{solution.py} has "banknote" as an argument, you may assume that this argument is the dataset in numpy format. Your function should use this argument to perform computations, \emph{not} a version of the dataset that you loaded by yourself.}%
+{Quand le modèle de réponse dans \emph{solution.py} contient "banknote" comme argument, vous pouvez considérer que cet argument est le jeu de données au format numpy. Votre fonction doit utiliser cet argument pour faire les calculs, et \emph{pas} une version du jeu de données que vous auriez chargé vous-même}
+\begin{enumerate}
+\item
+\points{4}{4}
+\question{\enfr{Write functions that take that dataset as input and return the following statistics:}%
+{Écrivez des fonctions qui prennent le jeu de données en entrée et retournent les statistiques suivantes:}}
+    \begin{enumerate}
+        \item \enfr{Q1.feature\_means : An array containing the empirical means of each feature, from all examples present in the dataset. Make sure to maintain the original order of features.}%
+        {Q1.feature\_means : Un tableau contenant pour chaque attribut la moyenne de sa valeur sur l'ensemble des points du jeu de données. Faites attention à maintenir l'ordre des attributs.} \\
+        \textcolor{red}{e.g. : Q1.feature\_means(banknote) = [$\mu_1$,$\mu_2$,$\mu_3$,$\mu_4$]}
+        
+        \item \enfr{Q1.covariance\_matrix : A \emph{$4 \times 4$ matrix} that represents the empirical covariance matrix of  features on the whole dataset.}%
+        {Q1.covariance\_matrix : Une \emph{matrice $4 \times 4$} donnant la matrice de covariance empirique des attributs sur le jeu de données entier}
+        
+        \item \enfr{Q1.feature\_means\_class\_1 : An array containing the empirical means of each feature, but only from examples in class 1. The possible classes in the banknote dataset are 0 and 1.}%
+        {Q1.feature\_means\_class\_1 : Un tableau contenant pour chaque attribut la moyenne de sa valeur sur l'ensemble des points dont le label est 1. Les classes possibles dans banknote sont 0 et 1.}\\
+        \textcolor{red}{e.g. : Q1.feature\_means\_class\_1(banknote) = [$\mu_1$,$\mu_2$,$\mu_3$,$\mu_4$]}
+        
+        \item \enfr{Q1.covariance\_matrix\_class\_1 : A \emph{$4 \times 4$ matrix} that represents the empirical covariance matrix of  features, but only from examples in class 1.}%
+        {Q1.covariance\_matrix\_class\_1 : Une \emph{matrice $4 \times 4$} donnant la matrice de covariance empirique des attributs sur l'ensemble des points dont le label est 1.}
+%        \item standardizing the data (may not make sense for k-NN)
+%        \item have them do some feature extraction / data pre-processing?
+    \end{enumerate}
+
+\item
+\points{1}{1}
+\question{\enfr{Implement Parzen with hard window parameter $h$. Use the standard Euclidean distance on the original features of the dataset. Your answer should have the following behavior : \\
+\textbf{f = HardParzen(h)} initiates the algorithm with parameter $h$ \\
+\textbf{f.train(X, Y)} trains the algorithm, where $X$ is a $n \times m$ matrix of $n$ training samples with $m$ features, and $Y$ is an array containing the $n$ labels. The labels are denoted by integers, but the number of classes in $Y$ can vary. \\
+\textbf{f.compute\_predictions(X\_test)} computes the predicted labels and return them as an array of same size as X\_test. X\_test is a $k \times m$ matrix of $k$ test samples with same number of features as $X$. This function is called only after training on ($X$, $Y$). \textcolor{red}{If a test sample x has no neighbor within window $h$, the algorithm should choose a label at random by using \textbf{draw\_rand\_label(x, label\_list)}, a function that is provided in the \textbf{solution.py} file, where label\_list is the list of different classes present in $Y$, and x is the array of features of the corresponding point.}}%
+{Implémentez la méthode de Parzen avec une fenêtre discrète de paramètre $h$. Utilisez la distance euclidienne classique sur les attributs du jeu de données. Votre solution doit avoir le comportement suivant : \\
+\textbf{f = HardParzen(h)} initialise l'instance de l'algorithme avec le paramètre $h$ \\
+\textbf{f.train(X, Y)} entraine l'algorithme, où $X$ est une matrice $n \times m$ de $n$ exemples d'entraînement avec $m$ attributs, et $Y$ est un tableau contenant les $n$ labels. Les labels sont représentés par des entiers, mais le nombre de classes dans $Y$ peut varier. \\
+\textbf{f.compute\_predictions(X\_test)} calcule les labels prédits et les retournent sous forme d'un tableau de même taille que X\_test. X\_test est une matrice $k \times m$ de $k$ exemples de test avec le même nombre d'attributs que $X$. Cette fonction n'est appelée qu'après s'être entraîné sur ($X$, $Y$). \textcolor{red}{Si un exemple de test x n'a pas de voisin dans la fenêtre de paramètre $h$, l'algorithme doit choisir un label au hasard en utilisant \textbf{draw\_rand\_label(x, label\_list)}, une fonction qui est fournie dans le fichier \textbf{solution.py}, avec label\_list la liste des différentes classes présentes dans $Y$, et x le vecteur des attributs du point correspondant.}}}
+\item
+\points{10}{5}
+\question{\enfr{Implement Parzen with a soft window. 
+We will use a radial basis function (RBF) kernel~(also known as \textit{Gaussian} kernel) with parameter $\sigma$. Use the standard Euclidean distance on the original features of the dataset. Please refer to the slides from the second week for the definition. The structure of your solution should be the same as in the previous question, but you will never need to draw a label at random with \textbf{draw\_rand\_label(x, label\_list)}. The class name is \textbf{SoftRBFParzen}.}%
+{Implémentez la méthode de Parzen avec une fenêtre continue. Nous utiliserons comme kernel une fonction à base radiale (RBF)~(aussi connue comme noyau \textit{Gaussien}) avec paramètre $\sigma$. Utilisez la distance Euclidienne sur les attributs du jeu de données. Veuillez consulter les notes de la deuxième semaine pour la définition. La structure de votre solution devrait être la même que pour la question précédente, mais vous n'aurez jamais besoin de choisir un label au hasard en utilisant \textbf{draw\_rand\_label(x, label\_list)}. Le nom de la classe est \textbf{SoftRBFParzen}}}
+
+\item 
+\points{7}{5}
+\question{\enfr{Implement a function \textbf{split\_dataset} that splits the banknote dataset as follows:
+\begin{itemize}
+    \item A training set consisting of the samples of the dataset with indices which have a remainder of either 0 or 1, or 2 when divided by 5
+    \item A validation set consisting of the samples of the dataset with indices which have a remainder of 3 when divided by 5. 
+    \item A test set consisting of the samples of the dataset with indices which have a remainder of 4 when divided by 5.
+\end{itemize}
+For instance the element of index 14 (in the original dataset) should be part of the test set because the remainder of 14 divided by 5 is 4.
+Do not use random splitting for this exercise (even though it is generally a very good idea). The function should take as input the dataset and return the three sets as a tuple (train, validation, test), where each element of the tuple is a matrix with 5 columns (the 4 features and the labels, kept in the same order).}%
+{Implémentez une fonction \textbf{split\_dataset} qui sépare le jeu de données banknote de la façon suivante:
+\begin{itemize}
+    \item Un ensemble d'entraînement composé des points du jeu de données dont l'indice a un reste de 0, 1 ou 2 quand divisé par 5
+    \item un ensemble de validation composé des points du jeu de données dont l'indice a un reste de 3 quand divisé par 5
+    \item un ensemble de test composé des points du jeu de données dont l'indice a un reste de 4 quand divisé par 5
+\end{itemize}
+Par exemple l'élément dont l'indice est 14 (dans le jeu de données original) doit faire partie de l'ensemble de test, car le reste de 14 divisé par 5 est 4.
+N'utilisez pas de séparation aléatoire pour cette exercice (bien que ce soit habituellement une très bonne idée). La fonction doit prendre en entrée le jeu de données, et retourner les trois sous-ensembles sous forme d'un tuple (train, validation, test), où chaque élément du tuple est une matrice à 5 colonnes (les 4 attributs et les labels, gardés dans le même ordre).}}
+
+\item
+\points{15}{10}
+\question{\enfr{Implement two functions \textbf{ErrorRate.hard\_parzen} and \textbf{ErrorRate.soft\_parzen} that compute the error rate (i.e. the proportion of missclassifications) of the HardParzen and SoftRBFParzen algorithms. The expected behavior is as follows : \\
+\textbf{test\_error = ErrorRate(x\_train, y\_train, x\_val, y\_val)} initiates the class and stores the training and validation sets, where x\_train and x\_val are matrices with 4 feature columns, and y\_train and y\_val are arrays containing the labels. \\
+\textbf{test\_error.hard\_parzen(h)} takes as input the window parameter h and returns as a float the error rate on x\_val and y\_val of the HardParzen algorithm that has been trained on x\_train and y\_train. \\
+\textbf{test\_error.soft\_parzen($\sigma$)} works just like with Hard Parzen, but with the SoftRBFParzen algorithm. \\
+
+Then, include in your report a single plot with two lines:
+\begin{enumerate}
+    \item Hard Parzen window's classification error on the validation set of banknote, when trained on the training set (see question 4) for the following values of h:
+    $$
+        h \in \{ 
+            0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0
+        \}
+    $$
+    \item RBF Parzen's classification error on the validation set of banknote, when trained on the training set (see question 4) for the following values of $\sigma$:
+    $$
+        \sigma \in \{ 
+             0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0
+        \}
+    $$
+\end{enumerate}
+The common x-axis will represent either $h$ or $\sigma$. 
+Always label your axes and lines in the plot!
+
+Give a detailed discussion of your observations.}%
+{Implémentez deux fonctions \textbf{ErrorRate.hard\_parzen} et \textbf{ErrorRate.soft\_parzen} qui calculent le taux d'erreur (i.e. la proportion de mauvaises classifications) des algorithms HardParzen et SoftRBGParzen. Le comportement attendu est le suivant : \\
+\textbf{test\_error = ErrorRate(x\_train, y\_train, x\_val, y\_val)} initialise la classe et sauvegarde les ensembles d'entraînement et de validation, où x\_train et x\_val sont des matrices d'attributs à 4 colonnes, et y\_train et y\_val sont des tableaux contenant les labels. \\
+\textbf{test\_error.hard\_parzen(h)} prends en entrée le paramètre h et retourne sous forme de nombre réel le taux d'erreur sur x\_val et y\_val de l'algorithm HardParzen qui a été entrainé sur x\_train et y\_train.\\
+\textbf{test\_error.soft\_parzen($\sigma$)} fait la même chose mais pour SoftRBFParzen. \\
+Ensuite, incluez dans votre rapport un graphe unique avec deux lignes~:
+\begin{enumerate}
+    \item l'erreur de classification de Hard Parzen sur l'ensemble de validation de banknote, après avoir été entraîne sur l'ensemble d'entraînement (voir question 4) pour les valeurs suivantes de h:
+    $$
+        h \in \{ 
+            0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0
+        \}
+    $$
+    \item l'erreur de classification de Soft Parzen sur l'ensemble de validation de banknote, après avoir été entraîné sur l'ensemble d'entraînement (voir question 4) pour les valeurs suivantes de $\sigma$:
+    $$
+        \sigma \in \{ 
+             0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0
+        \}
+    $$
+\end{enumerate}
+L'axe des abscisses représentera à la fois h et $\sigma$. Attention à annoter les axes et lignes du graphe! \\
+Donnez une discussion détaillée de vos observations.}}
+
+\item 
+\points{6}{5}
+\question{\enfr{Implement a function \textbf{get\_test\_errors} that uses the evaluated validation errors from the previous question to select $h^*$ and $\sigma^*$, then computes the error rates on the test set. The value $h^*$ is the one (among the proposed set in question 5) that results in the smallest validation error for Parzen with hard window, and $\sigma^*$ is the parameter (among the proposed set in question 5) that results in the smallest validation error for Parzen with RBF.
+
+The function should take as input the dataset and split it using question 4. The expected output is an array of size 2, the first value being the error rate on the test set of Hard Parzen with parameter $h^*$ (trained on the training set), and the second value being the error rate on the test set of Soft RBF Parzen with parameter $\sigma^*$ (trained on the training set).}%
+{Implémentez une fonction \textbf{get\_test\_errors} qui utilise les erreurs de classification sur l'ensemble de validation calculées à la question précédente pour sélectionner $h^*$ et $\sigma^*$, puis qui calcule le taux d'erreur sur l'ensemble de test. La valeur $h^*$ est celle (parmi celles proposées à la question 5) qui minimise l'erreur de Hard Parzen sur l'ensemble de validation, et $\sigma^*$ est le paramètre (parmi ceux proposés à la question 5) qui minimise l'erreur de Soft RBF Parzen sur l'ensemble de validation. \\
+La fonction doit prendre en argument le dataset et le séparer en utilisant la question 4. Le résultat attendu est un tableau de taille 2, dont la première valeur est le taux d'erreur sur l'ensemble de test de Hard Parzen avec paramètre $h^*$, et la deuxième est le taux d'erreur sur l'ensemble de test de Soft RBF Parzen avec paramètre $\sigma^*$.}}
+
+\item 
+\points{6}{5}
+\question{\enfr{Include in your report a discussion on the running time complexity of these two methods. 
+How does it vary for each method when the hyperparameter $h$ or $\sigma$ changes? Why ?}%
+{Ajoutez à votre rapport une discussion sur la complexité temporelle (temps de calcul) de ces deux méthodes. Comment cela évolue-t-il pour chaque méthode quand les paramètres $h$ ou $\sigma$ changent ? Pourquoi ?}}
+
+\item
+\points{bonus}{5}
+\question{\enfr{Implement a random projection (Gaussian sketch) map to be used on the input data:
+
+Your function \textbf{project\_data} should accept as input a feature matrix $X$ of dimension $n \times 4$ , as well as a $4 \times 2$ matrix $A$ encoding our projection.
+
+Define $p:x\mapsto \frac{1}{\sqrt{2}}A^{T}x$ and use this random projection map to reduce the dimension of the inputs (feature vectors of the dataset) from 4 to 2.
+
+Your function should return the output of the map $p$ when applied to $X$, in the form of a $n \times 2$ matrix. \\
+e.g. $project\_data(X_{n,4}, A_{4,2})=X_{n,2}^{proj}$}%
+{Implémentez une projection aléatoire (Gaussian sketch) pour l'utiliser sur les données d'entrée :\\
+Votre fonction \textbf{project\_data} doit accepter en entrée une matrice d'attributs $X$ de dimension $n \times 4$, et une matrice $A$ de dimension $4 \times 2$ encodant la projection.\\
+En définissant $p:x\mapsto \frac{1}{\sqrt{2}}x^{T}A$, utiliser cette projection aléatoire pour réduire la dimension des entrées (attributs des points du jeu de données) de 4 à 2.\\
+Votre fonction doit retourner le résultat de $p$ appliqué à $X$, sous forme d'une matrice $n \times 2$.\\
+e.g. $project\_data(X_{n,4}, A_{4,2})=X_{n,2}^{proj}$}}
+
+\item 
+\points{bonus}{10}
+\question{\enfr{Similar to Question 5, compute the validation errors of Hard Parzen classifiers trained on 500 random projections of the training set, for 
+$$h \in \{0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0 \}$$
+The validation errors should be computed on the projected validation set, using the same matrix $A$.
+To obtain random projections, you may draw $A$ as 8 independent variables drawn uniformly from a gaussian distribution of mean 0 and variance 1.\\
+You can for example store these validation errors in a $500 \times 9$ matrix, with a row for each random projection and a column for each value of $h$.
+
+Do the same thing for RBF Parzen classifiers, for
+$$\sigma \in \{0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0 \}$$
+
+Plot and include in your report in the same graph the average values of the validation errors (over all random projections) for each value of $h$ and $\sigma$, along with error bars of length equal to $0.2 \times $ the standard deviations.
+
+How do your results compare to the previous ones?}%
+{De même que dans la question 5, calculez les erreurs de validation du Hard Parzen entrainé sur 500 projections aléatoires de l'ensemble d'entrainement, pour
+$$h \in \{0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0 \}$$
+Les erreurs de validation devraient être calculées sur la projection de l'ensemble de validation, en utilisant la même matrice $A$.
+Pour obtenir des projections aléatoires, vous pouvez tirer $A$ comme 8 variables indépendantes tirées aléatoirement d'une distribution gaussienne de centre 0 et de variance 1.\\
+Vous pouvez par exemple représenter ces erreurs de validation dans une matrice $500 \times 9$, avec une rangée par projection aléatoire et une colonne par valeur de $h$.\\
+Faites la même chose pour Soft RBF Parzen, pour
+$$\sigma \in \{0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 3.0, 10.0, 20.0 \}$$
+Tracez et inclure dans votre rapport sur la même courbe les valeurs moyennes de l'erreur de validation (moyenner sur toutes les projections aléatoires) pour chaque valeur de $h$ et $\sigma$, avec des intervalles d'erreur (sous forme graphique de barres) de longueur égales à $0.2\times $ la déviation standard. \\
+Comment vos résultats se comparent-ils aux précédents ?
+}}
+\end{enumerate}
+
+\end{document}
