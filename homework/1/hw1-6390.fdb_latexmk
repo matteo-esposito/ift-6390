@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1600309087 "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf" "hw1-6390" 1600309669
+["pdflatex"] 1600309087 "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf" "hw1-6390" 1600309691
   "/Users/Matteo/Library/texlive/2017/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1600309086 7808 df882187570cfe19eab3daecfc05259d ""
   "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.aux" 1600309088 1083 01f884d24c724c694f9f3b7a1b194751 ""
   "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" 1600309072 21871 1c6ebce7157fed86625e88463bd33716 ""
@@ -202,9 +202,9 @@
   "hw1-6390.out" 1600309087 0 d41d8cd98f00b204e9800998ecf8427e ""
   "hw1-6390.tex" 1600309072 21871 1c6ebce7157fed86625e88463bd33716 ""
   (generated)
-  "hw1-6390.pdf"
-  "hw1-6390.aux"
   "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.log"
-  "hw1-6390.out"
   "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf"
   "hw1-6390.log"
+  "hw1-6390.aux"
+  "hw1-6390.pdf"
+  "hw1-6390.out"
