@@ -56,6 +56,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/enumerate.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/enumerate.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/lm/lmodern.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/lm/lmodern.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/babel/babel.sty
