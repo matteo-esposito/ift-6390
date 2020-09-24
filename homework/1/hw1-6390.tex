@@ -2,6 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{bbm}
 \usepackage{ulem}
@@ -98,8 +99,23 @@ All suspected cases of plagiarism will be recorded and shared with university of
 
 
 \begin{enumerate}[(a)]
-    \item Hello
-    \item yoyo
+    \item $$P(X=x | Y=y) = \frac{P(X=x) \cap P(Y=y)}{P(Y=y)}$$
+    \item Let $T_n$ be the result of the nth toss.
+    \begin{align*}
+        P((T_1 = H, T_2 = T) or (T_1 = T, T_2 = H)| T_0 = H) &= \frac{P(HHT) + P(HTH)}{P(H)} \\
+        &= \frac{2*(1/3)^1*(2/3)^2}{(2/3)} \\
+        &= \fbox{4/9}
+    \end{align*}
+    \item (i) $$P(X,Y) = P(Y,X) = P(Y|X)P(X)$$ (ii) $$P(X,Y) = P(X|Y)P(Y)$$
+    \item $$P(X|Y) = \frac{P(X \cap Y)}{P(Y)} = \frac{P(Y \cap X)}{P(Y)} = \frac{P(Y|X)P(X)}{P(Y)} \qquad \square$$ 
+    \item (i) $$P(McGill) = 1 - P(UdeM) = \fbox{0.45}$$ (ii) 
+    \begin{align*}
+        P(McGill | bilingual) &= \frac{McGill \cap bilingual}{P(bilingual)} \\
+        &= \frac{P(McGill \cap bilingual)P(Mcgill)}{P(bilingual)} \\
+        &= \frac{P(McGill \cap bilingual)P(Mcgill)}{P(McGill \cap bilingual)P(Mcgill) + P(UdeM \cap bilingual)P(UdeM)} \\
+        &= \frac{(0.50)(0.45)}{(0.50)(0.45) + (0.80)(0.55)} \\
+        &= \fbox{45/133}
+    \end{align*}
 \end{enumerate}
 
 \item \textbf{\enfr{Bag of words and single topic model}{Bag of words (sac de mots) et modèle de sujet unique}} %
@@ -162,6 +178,24 @@ Comment estimeriez vous les probabilités conditionnelles~(e.g., $\mathbb{P}(\ma
 
 \end{enumerate}
 
+\begin{enumerate}[(a)]
+    \item $$P("goal" | politics) = \frac{8}{1000}$$
+    \item $$200*P("goal" | sports) = 200\left(\frac{3}{200}\right) = 3$$
+    \item \begin{align*}
+        P("goal") &= P("goal"|sports)P(sports) + P("goal"|politics)P(politics) \\
+        &= \left(\frac{3}{200}\right)\left(\frac{2}{3}\right) + \left(\frac{8}{1000}\right)\left(\frac{1}{3}\right) \\
+        &= 0.0127
+    \end{align*}
+    \item \begin{align*}
+        P(sports|"kick") &= \frac{P("kick"|sports)P(sports)}{P("kick"|sports)P(sports) + P("kick"|politics)P(politics)}\\
+        &= \frac{\frac{1}{200}*\frac{2}{3}}{\frac{1}{200}*\frac{2}{3} + \frac{2}{1000}*\frac{1}{3}} \\
+        &= \frac{5}{6}
+    \end{align*}
+    \item Since words are independent, we can ignore the fact that the first word chosen was "kick" and it will suffice to calculate P("goal"). As in $2(c)$, $$P("goal") = 0.0127$$
+    \item For the conditional probabilities, we would take a count of all words in each of the 2 document classes then divide that by the total number of words found in all documents per document class. i.e. $$P("goal"|politics) = \frac{\text{\# instances of "goal" in all politics documents}}{\text{\# words in all politics documents}}$$\par
+    For the topic probabilities, it would suffice to get a count of the number of documents classified as politics and sports and take the quotient of those totals and N. i.e. $$P("politics") = \frac{\text{\# labels = politics}}{N}$$
+\end{enumerate}
+
 \item \textbf{\enfr{Maximum likelihood estimation}{Estimateur du maximum de vraisemblance}}
 \points{10}{5}
 \\
@@ -198,7 +232,7 @@ où $||\x||_1 = |x_1| + |x_2|$ est la norme $\ell_1$ de $\mathbf{x}$.
 \item \enfr{Let $f_\theta(\x_1, \x_2, \ldots, \x_n)$ denote the joint pdf of $n$ independent and identically distributed (i.i.d.)\ samples drawn according to $f_\theta(\x)$.
 Express $f_\theta(\x_1, \x_2, \ldots, \x_n)$ as a function of $f_\theta(\x_1), f_\theta(\x_2), \ldots, f_\theta(\x_n)$}
 {Soit $f_\theta(\x_1, \x_2, \ldots, \x_n)$ la fonction de densité de probabilité jointe de $n$ points indépendemment et identiquement distribué (i.i.d) selon $f_\theta(\x)$.
-Exprimez $f_\theta(\x_1, \x_2, \ldots, \x_n)$ en fonction de $f_\theta(\x_1), f_\theta(\x_2), \ldots, f_\theta(\x_n)$}
+Exprimez $f_\theta(\x_1, \x_2, \ldots, \x_n)$ en fonction de $f_\theta(\x_1), f_\theta(\x_2), \ldots, f_\theta(\x_{n-1})$}
 
 \item \enfr{We define the \emph{maximum likelihood estimate} by the value of $\theta$ which maximizes the likelihood of having generated the dataset $D$ from the distribution $f_\theta(\x)$. Formally,
 $$\theta_{MLE} = \argmax_{\theta \in \mathbb{R}^+} f_\theta(\x_1,\x_2,\ldots,\x_n),$$
@@ -207,6 +241,23 @@ Find the maximum likelihood estimate of $\theta$.}%
 $$\theta_{MLE} = \argmax_{\theta \in \mathbb{R}} f_\theta(\x_1,\x_2,\ldots,\x_n),$$
 Trouvez l'estimateur du maximum de vraisemblance de $\theta$.}
 \end{enumerate}
+
+\begin{enumerate}[(a)]
+    \item \begin{align*}
+        L(\theta) &= f_{\theta}(x_1, x_2, \ldots, x_n) \\
+        &= \prod_{i=1}^{n} f_{\theta}(x_i) \\
+        &= \left(\frac{1}{2\theta^2}\right)\left(\frac{1}{2\theta^2}\right) \ldots \left(\frac{1}{2\theta^2}\right)
+    \end{align*}
+    \[L(\theta) = 
+        \begin{cases} 
+            \frac{1}{(2\theta^2)^n} & ||x_i||_1 \leq \theta \quad i = (1, \ldots, n)\\
+            0 & \text{Otherwise}
+        \end{cases}
+    \]
+    \item We can see that the value of $\theta$ that will maximize $L(\theta)$ will have to be the smallest value of $\theta$ such that $\theta \geq ||x_i||_1$. Therefore, 
+    $$\hat\theta = max(||x_1||_1, ||x_2||_1, \ldots, ||x_n||_1)$$
+\end{enumerate}
+
 
 \item \textbf{\enfr{Maximum likelihood meets histograms}{Estimateur du maximum de vraisemblance et histograme}}
 \points{10}{10}

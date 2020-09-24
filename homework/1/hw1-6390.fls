@@ -21,14 +21,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amssymb.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mathtools.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mathtools.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/calc.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/calc.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mhsetup.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mhsetup.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -39,6 +31,14 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mathtools.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mathtools.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mhsetup.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/mathtools/mhsetup.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bbm-macros/bbm.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bbm-macros/bbm.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/ulem/ulem.sty
@@ -288,8 +288,6 @@ INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/diamond.eps
 INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/diamond-eps-converted-to.pdf
 INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/diamond-eps-converted-to.pdf
 INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/diamond-eps-converted-to.pdf
-INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/diamond-eps-converted-to.pdf
-INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/diamond-eps-converted-to.pdf
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bbm/bbm10.tfm
@@ -300,8 +298,8 @@ INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.out
 INPUT /Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.out
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /Users/Matteo/Library/texlive/2017/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
@@ -319,4 +317,5 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy6.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
