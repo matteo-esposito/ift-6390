@@ -30,7 +30,7 @@
 \settoggle{french}{false}        %%% "true" if french or "false" if english
 
 \providetoggle{final}            
-\settoggle{final}{false}        %%% "true" for your final homework submission (removes instructions)
+\settoggle{final}{true}        %%% "true" for your final homework submission (removes instructions)
 
 %%%%%%%%%%%%%%%%%%%%% ^^^^^
 \usepackage[colorlinks=true]{hyperref}
@@ -47,7 +47,7 @@
 \par\end{center}{\large \par}
 
 \begin{center}
-\textbf{\LARGE{\enfr{Homework 1 - Theoretical part}{Devoir 1 - Partie Th\'eorique}}}
+\textbf{\LARGE{\enfr{Homework 1 - Theoretical part \\(Matteo Esposito)}{Devoir 1 - Partie Th\'eorique}}}
 \par\end{center}{\LARGE \par}
 
 
@@ -107,7 +107,11 @@ All suspected cases of plagiarism will be recorded and shared with university of
         &= \fbox{4/9}
     \end{align*}
     \item (i) $$P(X,Y) = P(Y,X) = P(Y|X)P(X)$$ (ii) $$P(X,Y) = P(X|Y)P(Y)$$
-    \item $$P(X|Y) = \frac{P(X \cap Y)}{P(Y)} = \frac{P(Y \cap X)}{P(Y)} = \frac{P(Y|X)P(X)}{P(Y)} \qquad \square$$ 
+    \item Since $P(Y,X) = P(Y|X)P(X)$ and $P(X,Y) = P(X|Y)P(Y)$ and $P(X,Y) = P(Y,X)$ then,
+     \begin{align*}
+        P(X|Y)P(Y) &= P(Y|X)P(X)\\
+        P(X|Y) &= \frac{P(Y|X)P(X)}{P(Y)} \qquad \square
+     \end{align*}
     \item (i) $$P(McGill) = 1 - P(UdeM) = \fbox{0.45}$$ (ii) 
     \begin{align*}
         P(McGill | bilingual) &= \frac{McGill \cap bilingual}{P(bilingual)} \\
@@ -191,9 +195,13 @@ Comment estimeriez vous les probabilités conditionnelles~(e.g., $\mathbb{P}(\ma
         &= \frac{\frac{1}{200}*\frac{2}{3}}{\frac{1}{200}*\frac{2}{3} + \frac{2}{1000}*\frac{1}{3}} \\
         &= \frac{5}{6}
     \end{align*}
-    \item Since words are independent, we can ignore the fact that the first word chosen was "kick" and it will suffice to calculate P("goal"). As in $2(c)$, $$P("goal") = 0.0127$$
+    \item Seeing as we calculated $P(sports|"kick")$ in the previous question, and knowing that the first word selected was "kick", we have that; 
+    \begin{align*}
+        P("goal") &= \left(\frac{5}{6}\right)\left(\frac{3}{200}\right) + \left(\frac{1}{6}\right)\left(\frac{8}{1000}\right) \\
+        &= 0.0138
+    \end{align*}
     \item For the conditional probabilities, we would take a count of all words in each of the 2 document classes then divide that by the total number of words found in all documents per document class. i.e. $$P("goal"|politics) = \frac{\text{\# instances of "goal" in all politics documents}}{\text{\# words in all politics documents}}$$\par
-    For the topic probabilities, it would suffice to get a count of the number of documents classified as politics and sports and take the quotient of those totals and N. i.e. $$P("politics") = \frac{\text{\# labels = politics}}{N}$$
+    For the topic probabilities, it would suffice to get a count of the number of documents classified as politics and sports and take the quotient of those totals and N (where N is total number of documents). i.e. $$P("politics") = \frac{\text{\# labels = politics in dataset}}{N}$$
 \end{enumerate}
 
 \item \textbf{\enfr{Maximum likelihood estimation}{Estimateur du maximum de vraisemblance}}
@@ -258,6 +266,7 @@ Trouvez l'estimateur du maximum de vraisemblance de $\theta$.}
     $$\hat\theta = max(||x_1||_1, ||x_2||_1, \ldots, ||x_n||_1)$$
 \end{enumerate}
 
+%%%%%%%%%%%%%%% 4 %%%%%%%%%%%%%%%
 
 \item \textbf{\enfr{Maximum likelihood meets histograms}{Estimateur du maximum de vraisemblance et histograme}}
 \points{10}{10}
@@ -284,6 +293,24 @@ $$
 {Trouvez l'estimateur du maximum de vraisemblance de $\theta_j$, $j \in \{1, 2, \cdots, N\}.$}
 \end{enumerate}
 
+\begin{enumerate}[(a)]
+    \item \begin{align*}
+        \sum_{j=1}^{N} \frac{\theta_j}{N} &= 1 \\
+        \sum_{j=1}^{N-1} \frac{\theta_j}{N} + \frac{\theta_N}{N} &= 1 \\
+        \theta_N &= N - \sum_{j=1}^{N-1} \theta_j
+    \end{align*}
+    \item \begin{align*}
+        \mathcal{L}(\theta) &= log(L(\theta)) = log\left(\prod_{j=1}^{N}\left(\frac{\theta_j}{N}\right)^{\mu_j}\right) = log\left(\left(\frac{\theta_N}{N}\right)^{\mu_j}\prod_{j=1}^{N-1}\left(\frac{\theta_j}{N}\right)^{\mu_j}\right)\\ 
+        &= log\left(\left(1 - \sum_{j=1}^{N-1}\frac{\theta_j}{N}\right)^{n - \sum_{j=1}^{N-1}\mu_j}\prod_{j=1}^{N-1}\left(\frac{\theta_j}{N}\right)^{\mu_j}\right) \\
+        &= \left(n - \sum_{j=1}^{N-1}\mu_j\right)log\left(1 - \sum_{j=1}^{N-1}\frac{\theta_j}{N}\right) + \left(\sum_{j=1}^{N-1}\mu_jlog\left(\frac{\theta_j}{N}\right)\right)
+    \end{align*}
+    Staying aligned with the problem statement, the above expression should be our final answer. We can however simplify it some more.
+    $$\mathcal{L(\theta)} = \mu_Nlog\left(\frac{\theta_N}{N}\right) + \sum_{j=1}^{N-1}\mu_jlog\left(\frac{\theta_j}{N}\right)$$
+    \item Assume $k \in \{1, \ldots, N\}$, then $$\frac{\partial}{\partial\theta_k}(\mathcal{L}(\theta_k)) = -\frac{\mu_N}{1-\sum_{j=1}^{N-1}\theta_j} + \frac{\mu_k}{\theta_k} = 0 \iff \frac{\mu_N}{1-\sum_{j=1}^{N-1}\theta_j} = \frac{\mu_k}{\theta_k}$$ Rerranging our terms, we have that, $$\theta_k = \frac{\mu_k\theta_N}{\mu_N}$$ To maximize this we assume $\mu_N = n$ and $\theta_N = N$, in the case where all points fall into one bin and therefore, $$\hat{\theta_k} = \frac{\mu_kN}{n} \quad \forall \; k \in \{1, \ldots, N\}$$
+\end{enumerate}
+
+%%%%%%%%%%%%%%% 5 %%%%%%%%%%%%%%%
+
 \item \textbf{\enfr{Histogram methods}{Méthodes à base d'histogrames}} %
 \points{10}{10}
 \\
@@ -298,6 +325,16 @@ $$
     \item \enfr{Assuming a uniform distribution over all bins, how many data points would you need to get $k$ points per bin on average?}{Assumant une distribution uniforme sur toutes les régions, combien de données faut il pour avoir $k$ données par région en moyenne?}
     \item \enfr{Assuming a uniform distribution over all bins, what is the probability that a particular bin is empty, as a function of $d$, $m$ and $n$?}{Assumant une distribution uniforme sur tous les régions, quelle est la probabilité qu'une région donnée soit vide, en fonction de $d$, $m$ et $n$?}
 \end{enumerate}
+
+\begin{enumerate}[(a)]
+    \item We use the definition of expectation of a continuous rv and the fact that all points $\notin S$ will not contribute to the expectation to yield the following: $$\mathbb{E}_{x\sim f}[\mathbbm{1}_{\{x \in S\}}] = \int_{x\sim f}f(x)\mathbbm{1}_{\{x \in S\}}dx = \int_{S}f(x)dx = \mathbb{P}_{x\sim f}(x \in S)$$
+    \item Given a region $V_i$, we can leverage the LLN and the previous expression to assert that, $$\mathbb{P}_{x\sim f}(x \in V_i) = \int_{V_i}f(x)dx = \mathbb{E}_{x\sim f}[\mathbbm{1}_{\{x \in S\}}]$$
+    \item $$\text{\# bins} = 2^{784} = 10^{784*log_{10}2} = 10^{\sim236}$$ Therefore, 237 digits.
+    \item If we assume a uniform distribution, to be able to get $k$ points per bin on average, we would need to satidfy the following expression: $$k = \frac{\text{\# points}}{\text{\# bins}} = \frac{n}{m}$$ Therefore, given our previous result, we would need $$\frac{n}{2^{784}} = k \iff n = k*2^{784} \; \text{points}$$
+    \item The probability of a point falling into a bin is given by $\frac{1}{m^d}$ therefore, the probability of not falling into a bin is $1 - \frac{1}{m^d}$. If we extend this to the case where a bin will never receive a point we have that, $$P(\text{Empty bin}) = \left(1-\frac{1}{m^d}\right)^n$$
+\end{enumerate}
+
+%%%%%%%%%%%%%%% 6 %%%%%%%%%%%%%%%
 
 \item \textbf{\enfr{Gaussian Mixture}{Mélange de Gaussiennes}} %
 \points{0}{10}
@@ -326,6 +363,28 @@ Montrez toutes les étapes du calcul.}
 \item \enfr{Recall that the Bayes optimal classifier is $h_{Bayes}(\x) = \underset{y \in \{0,1\}}{\mathrm{argmax}}\ \mathbb{P}(Y=y|X=\x)$. Show that in this setting if $\Sigma_0 = \Sigma_1$ the Bayes optimal classifier is linear in $\x$.}%
 {Rappelez-vous que le classifieur optimale Bayes est $h_{Bayes}(\x) = \underset{y \in \{0,1\}}{\mathrm{argmax}}\ \mathbb{P}(Y=y|X=\x)$. Assumant $\Sigma_0 = \Sigma_1$, Démontrez que le classifieur optimal Bayes est linéaire en $\x$. }
 \end{enumerate}
+
+\begin{enumerate}[(a)]
+    \item We can use Bayes Rule here, \begin{align*}
+        \mathbb{P}(Y=0|X=\x) &= \frac{P(X=\x|Y=0)P(Y=0)}{P(X=\x)} \\
+        &= \frac{P(X=\x|Y=0)P(Y=0)}{P(X=\x|Y=0)P(Y=0) + P(X=\x|Y=1)P(Y=1)}
+    \end{align*} and from the information above we know that $Y$ represents a fair coin toss with probability 0.5 of 1 and of 0. Therefore, we can exclude it from the calculation since it appears in both the numerator and denominator.
+    \begin{align*}
+        \mathbb{P}(Y=0|X=\x) &= \frac{f_{\mu_{0},\Sigma_{0}}(\x)*\frac{1}{2}}{f_{\mu_{0},\Sigma_{0}}(\x)*\frac{1}{2} + f_{\mu_{1},\Sigma_{1}}(\x)*\frac{1}{2}} \\
+        &= \frac{f_{\mu_{0},\Sigma_{0}}(\x)}{f_{\mu_{0},\Sigma_{0}}(\x) + f_{\mu_{1},\Sigma_{1}}(\x)} \\
+        &= \frac{\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{det(\Sigma_{0})}}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})}}{\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{det(\Sigma_{0})}}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})} + \frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{det(\Sigma_{1})}}e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma_{1}^{-1}(\x-\mu_{1})}}\\
+        &= \frac{\sqrt{det(\Sigma_{1})}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})}}{\sqrt{det(\Sigma_{1})}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})} + \sqrt{det(\Sigma_{0})}e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma_{1}^{-1}(\x-\mu_{1})}}
+    \end{align*}
+    \item If we let $\Sigma_0=\Sigma_1=\Sigma$, we have that, $$\mathbb{P}(Y=0|X=\x) = \frac{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})}}{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} + e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}}$$ and to determine the decision boundary and show that the classifier is linear in $x$, we set $\mathbb{P}(Y=0|X=\x) = \mathbb{P}(Y=1|X=\x)$, yielding the following:
+    \begin{align*}
+        \mathbb{P}(Y=0|X=\x) &= \mathbb{P}(Y=1|X=\x) \\
+        \frac{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})}}{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} + e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}} &= \frac{e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}}{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} + e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}} \\
+        e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} &= e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})} \\
+        \frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0}) &= \frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1}) \\
+        ||x - \mu_0|| &= ||x - \mu_1|| \quad \square
+    \end{align*}
+\end{enumerate}
+
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
