@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1601403533 "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf" "hw1-6390" 1601403534
+["pdflatex"] 1601525276 "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf" "hw1-6390" 1601525278
   "/Users/Matteo/Library/texlive/2017/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk" 1600309086 7808 df882187570cfe19eab3daecfc05259d ""
-  "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.aux" 1601403534 998 ab3c33abe789bae36724283e150f2fb6 ""
-  "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" 1601403532 31128 48a35910d6b1da50d770dc8887b08fe2 ""
+  "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.aux" 1601525277 998 ab3c33abe789bae36724283e150f2fb6 ""
+  "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.tex" 1601525275 31229 df5dc6b3994d31d6362a662cf6ec6dc0 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1480098668 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1480098668 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1480098668 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -196,13 +196,13 @@
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
   "commands.tex" 1600309045 1289 8b8cdb6c9835fdbad9f57ca3ae2b1036 ""
   "diamond.eps" 1600323152 60103 0dd4d456fd7e1da225bd2d568a3b4447 ""
-  "hw1-6390.aux" 1601403534 998 ab3c33abe789bae36724283e150f2fb6 ""
-  "hw1-6390.out" 1601403533 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "hw1-6390.tex" 1601403532 31128 48a35910d6b1da50d770dc8887b08fe2 ""
+  "hw1-6390.aux" 1601525277 998 ab3c33abe789bae36724283e150f2fb6 ""
+  "hw1-6390.out" 1601525277 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "hw1-6390.tex" 1601525275 31229 df5dc6b3994d31d6362a662cf6ec6dc0 ""
   (generated)
-  "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf"
   "hw1-6390.log"
-  "hw1-6390.aux"
-  "hw1-6390.out"
   "hw1-6390.pdf"
   "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.log"
+  "hw1-6390.aux"
+  "hw1-6390.out"
+  "/Users/Matteo/projects/fundamentals-of-ml/homework/1/hw1-6390.pdf"

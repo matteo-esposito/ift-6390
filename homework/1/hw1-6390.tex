@@ -327,9 +327,9 @@ $$
 \end{enumerate}
 
 \begin{enumerate}[(a)]
-    \item We use the definition of expectation of a continuous rv and the fact that all points $\notin S$ will not contribute to the expectation to yield the following: $$\mathbb{E}_{x\sim f}[\mathbbm{1}_{\{x \in S\}}] = \int_{x\sim f}f(x)\mathbbm{1}_{\{x \in S\}}dx = \int_{S}f(x)dx = \mathbb{P}_{x\sim f}(x \in S)$$
-    \item Given a region $V_i$, we can leverage the LLN and the previous expression to assert that, $$\mathbb{P}_{x\sim f}(x \in V_i) = \int_{V_i}f(x)dx = \mathbb{E}_{x\sim f}[\mathbbm{1}_{\{x \in S\}}]$$
-    \item $$\text{\# bins} = 2^{784} = 10^{784*log_{10}2} = 10^{\sim236}$$ Therefore, 237 digits.
+    \item We use the definition of expectation of a continuous rv and the fact that all points $\notin S$ will not contribute to the expectation to yield the following: $$\mathbb{E}_{x\sim f}[\mathbbm{1}_{\{x \in S\}}] = \sum_{x\sim f}f(x)\mathbbm{1}_{\{x \in S\}}dx = \sum_{S}f(x)dx = \mathbb{P}_{x\sim f}(x \in S)$$
+    \item Given a region $V_i$, we can leverage the LLN and the previous expression to assert that, $$\mathbb{P}_{x\sim f}(x \in V_i) = \lim_{n \to \infty}\sum_{V_i}f(x)dx = \mathbb{E}_{x\sim f}[\mathbbm{1}_{\{x \in S\}}]$$
+    \item $$\text{\# bins} = 2^{784} = 10^x$$ where x is going to be the $\#digits - 1$. We have, $$x = 784*log_{10}2 \sim 236$$ Therefore, we have $10^{236}$ bins and 237 digits.
     \item If we assume a uniform distribution, to be able to get $k$ points per bin on average, we would need to satidfy the following expression: $$k = \frac{\text{\# points}}{\text{\# bins}} = \frac{n}{m}$$ Therefore, given our previous result, we would need $$\frac{n}{2^{784}} = k \iff n = k*2^{784} \; \text{points}$$
     \item The probability of a point falling into a bin is given by $\frac{1}{m^d}$ therefore, the probability of not falling into a bin is $1 - \frac{1}{m^d}$. If we extend this to the case where a bin will never receive a point we have that, $$P(\text{Empty bin}) = \left(1-\frac{1}{m^d}\right)^n$$
 \end{enumerate}
