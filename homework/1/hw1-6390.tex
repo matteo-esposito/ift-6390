@@ -365,24 +365,25 @@ Montrez toutes les étapes du calcul.}
 \end{enumerate}
 
 \begin{enumerate}[(a)]
-    \item We can use Bayes Rule here, \begin{align*}
-        \mathbb{P}(Y=0|X=\x) &= \frac{P(X=\x|Y=0)P(Y=0)}{P(X=\x)} \\
-        &= \frac{P(X=\x|Y=0)P(Y=0)}{P(X=\x|Y=0)P(Y=0) + P(X=\x|Y=1)P(Y=1)}
-    \end{align*} and from the information above we know that $Y$ represents a fair coin toss with probability 0.5 of 1 and of 0. Therefore, we can exclude it from the calculation since it appears in both the numerator and denominator.
+    \item We can use Bayes Rule here,
     \begin{align*}
-        \mathbb{P}(Y=0|X=\x) &= \frac{f_{\mu_{0},\Sigma_{0}}(\x)*\frac{1}{2}}{f_{\mu_{0},\Sigma_{0}}(\x)*\frac{1}{2} + f_{\mu_{1},\Sigma_{1}}(\x)*\frac{1}{2}} \\
-        &= \frac{f_{\mu_{0},\Sigma_{0}}(\x)}{f_{\mu_{0},\Sigma_{0}}(\x) + f_{\mu_{1},\Sigma_{1}}(\x)} \\
+        \mathbb{P}(Y=0|X) &= \frac{f_{\mu_{0},\Sigma_{0}}(\x)*P(Y=0)}{f_{\mu_{0},\Sigma_{0}}(\x)*P(Y=0) + f_{\mu_{1},\Sigma_{1}}(\x)*P(Y=0)} \\
+        &= \frac{f_{\mu_{0},\Sigma_{0}}(\x)*\frac{1}{2}}{f_{\mu_{0},\Sigma_{0}}(\x)*\frac{1}{2} + f_{\mu_{1},\Sigma_{1}}(\x)*\frac{1}{2}} \\
         &= \frac{\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{det(\Sigma_{0})}}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})}}{\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{det(\Sigma_{0})}}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})} + \frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{det(\Sigma_{1})}}e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma_{1}^{-1}(\x-\mu_{1})}}\\
         &= \frac{\sqrt{det(\Sigma_{1})}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})}}{\sqrt{det(\Sigma_{1})}e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma_{0}^{-1}(\x-\mu_{0})} + \sqrt{det(\Sigma_{0})}e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma_{1}^{-1}(\x-\mu_{1})}}
     \end{align*}
-    \item If we let $\Sigma_0=\Sigma_1=\Sigma$, we have that, $$\mathbb{P}(Y=0|X=\x) = \frac{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})}}{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} + e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}}$$ and to determine the decision boundary and show that the classifier is linear in $x$, we set $\mathbb{P}(Y=0|X=\x) = \mathbb{P}(Y=1|X=\x)$, yielding the following:
+    \item If we let $\Sigma_0=\Sigma_1=\Sigma$, we have, 
     \begin{align*}
-        \mathbb{P}(Y=0|X=\x) &= \mathbb{P}(Y=1|X=\x) \\
-        \frac{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})}}{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} + e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}} &= \frac{e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}}{e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} + e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})}} \\
-        e^{-\frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0})} &= e^{-\frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1})} \\
-        \frac{1}{2}(\x-\mu_{0})^{T}\Sigma^{-1}(\x-\mu_{0}) &= \frac{1}{2}(\x-\mu_{1})^{T}\Sigma^{-1}(\x-\mu_{1}) \\
-        ||x - \mu_0|| &= ||x - \mu_1|| \quad \square
+        \mathbb{P}(X|Y=1) &= \mathbb{P}(X|Y=0) \\
+        log(P(Y=1)) - \frac{1}{2}(x-\mu_1)^T\Sigma^{-1}(x-\mu_1) &= log(P(Y=0)) - \frac{1}{2}(x-\mu_0)^T\Sigma^{-1}(x-\mu_0) \\
     \end{align*}
+    Representing the constant values by $c$, we have,
+    \begin{align*}
+        c + x^T\Sigma^{-1}x - 2\mu_1^T\Sigma^{-1}x + \mu_1^T\Sigma^{-1}\mu_1 &= x^T\Sigma^{-1}x - 2\mu_0^T\Sigma^{-1}x + \mu_0^T\Sigma^{-1}\mu_0 \\
+        \left(2(\mu_0 - \mu_1)^T\Sigma^{-1}\right)x - (\mu_0 - \mu_1)^T\Sigma^{-1}(\mu_0 - \mu_1) &= c
+    \end{align*}
+    Which can be represented alternatively as: $$
+    a^Tx - b = 0  \quad \square$$ which is obviously linear.
 \end{enumerate}
 
 \end{enumerate}
