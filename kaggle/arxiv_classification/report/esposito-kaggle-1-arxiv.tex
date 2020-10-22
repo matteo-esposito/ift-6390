@@ -115,7 +115,7 @@ P\or Q\or R\or S\or T\or U\or V\or W\or X\or Y\or Z\fi}
 %%% Titlepage
 \title{\textbf{ArXiv Article Classification}}
 \author{Fundamentals of Machine Learning}
-\date{Matteo Esposito (Professional MSc)}
+\date{Matteo Esposito (20173298)}
 
 %--------------------------------------------------------------------------%
 
@@ -141,11 +141,37 @@ More specifically, given the abstract of several thousand papers, our goal was t
 
 \section{Feature Design}
 
+Since at the lowest level we were interested in the count of unique words in our training set abstracts, our feature design could be seen as a dataset condensing/cleaning exercise. All efforts to tidy the dataset were done to reduce the number of unique words/strings (grouping of string characters between spaces) down from over 65,000 to 21,253 which speeds up computation times significantly. 
 
+\medskip
+
+\underline{Note:} All cleaning functions were implemented using the following syntax (adapted from the TA's notebook): 
+
+\begin{verbatim}
+    df[t] = df[t].apply(lambda x : re.sub("<regex pattern>", " ", x))
+\end{verbatim}
+
+More specifically, the following changes were done:
+
+\begin{enumerate}
+    \item Remove newline characters
+    \item Remove punctuation
+    \item Remove dollar signs and any mathematical symbols (very important given that many abstracts had mathematical terms and functions)
+    \item Remove standalone integers 
+    \item Make all strings lowercase
+    \item Strip all strings of spaces (using x.strip())
+    \item Remove all common stopwords
+\end{enumerate}
 
 \section{Algorithms}
 
-
+The algorithms considered and implemented in this kaggle were the following:
+\begin{itemize}
+    \item Random Classifier
+    \item Bernoulli Naive Bayes Classifier using base python + numpy
+    \item Multinomial Naive Bayes Classifier from the sklearn library including the use of CountVectorizer, TfidfTransformer and Pipeline.
+    \item Support Vector Machine Classifier from the sklearn library including the use of CountVectorizer, TfidfTransformer and Pipeline.
+\end{itemize}
 
 \section{Methodology}
 
@@ -153,7 +179,23 @@ More specifically, given the abstract of several thousand papers, our goal was t
 
 \section{Results}
 
+\begin{figure}[H]
+    \centering
+    \caption{Random Classifier Accuracy Comparison}
+    \includegraphics[width=12cm]{compareRandom.png}    
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \caption{Bernoulli NB and Multinomial NB Accuracy Comparison}
+    \includegraphics[width=12cm]{compare.png}    
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{SVM Grid Search Results}
+    \includegraphics[width=12cm]{compareSVM.png}    
+\end{figure}
 
 \section{Discussion}
 
