@@ -1,0 +1,60 @@
+\item{  \textbf{\enfr{Bias-Variance decomposition}{Décomposition biais/variance}}
+\points{2}{2}
+
+\enfr{
+Consider the following data generation process: an input point $x$ is drawn from an unknown distribution and the output $y$ is generated using the formula 
+$$
+y = f(x) + \epsilon,
+$$
+where $f$ is an unknown deterministic function and $\epsilon \sim \mathcal{N}(\mu,\,\sigma^{2})$. This  process implicitly defines a distribution over inputs and outputs; we denote this distribution by $p$.
+
+Given an i.i.d. training dataset $D=\{({x}_1, y_1),\dots,({x}_n, y_n)\}$ drawn from $p$, we can fit the hypothesis $h_D$ that minimizes the empirical risk with the squared error loss function. More formally,
+$$
+h_D= \argmin_{h\in \mathcal H}  \sum_{i=1}^n (y_i - h({x}_i))^2
+$$
+where $\mathcal H$ is the set of hypotheses (or function class) in which we look for the best hypothesis/function.
+
+The expected error\footnote{Here the expectation is over random draws of the training set $D$ of $n$ points from the unknown distribution $p$. For example (and more formally): $\Esp[(h_D({x'})] = \Esp_{(x_1,y_1)\sim p} \cdots \Esp_{(x_n,y_n)\sim p} \Esp[(h_{\{({x}_1, y_1),\dots,({x}_n, y_n)\}}({x'})]$.}  of $h_D$ on a fixed data point $(x',y')$ is given by $\Esp[(h_D({x'}) - y')^2]$. Two meaningful terms that can be defined are:
+\begin{itemize}
+    \item The \emph{bias}, which is the difference between the expected value of hypotheses at ${ x}'$ and the true value  $f({x'})$. Formally,
+$$
+\textit{bias}= \Esp[h_D({x'})]-f({x'})
+$$
+\item The \emph{variance}, which is how far hypotheses learned on different datasets are spread out from their mean $\Esp[h_D({x'})]$. Formally,
+$$
+\textit{variance}= \Esp[(h_D({x'}) - \Esp[h_D({x'})])^2]
+$$
+\end{itemize}
+
+
+Show that the expected prediction error on $({x'},y')$ can be decomposed into a sum of 3 terms: $(\textit{bias})^2$, $\textit{variance}$, and a $\textit{noise}$ term involving $\epsilon$. You need to justify all the steps in your derivation.
+
+}{
+
+Considérons les données générées de la manière suivante: une donnée $x$ est échantillonnée à partir d'une distribution inconnue, et nous observons la mesure correspondante $y$ générée d'après la formule
+$$
+y = f(x) + \epsilon,
+$$
+où $f$ est une fonction déterministe inconnue et  $\epsilon \sim \mathcal{N}(\mu,\,\sigma^{2})$. Ceci définit une distribution sur les données $x$ et mesures $y$, nous notons cette distribution $p$.
+
+Étant donné un ensemble d'entraînement $D=\{({x}_1, y_1),\dots,({x}_n, y_n)\}$ échantillonné i.i.d. à partir de $p$, on définit l'hypothèse $h_D$ qui minimise le risque empirique donné par la fonction de coût erreur quadratique. Plus précisément,
+$$
+h_D= \argmin_{h\in \mathcal H}  \sum_{i=1}^n (y_i - h({x}_i))^2
+$$
+où $\mathcal H$ est l'ensemble d'hypothèses (ou classe de fonction) dans lequel nous cherchons la meilleure fonction/hypothèse.
+
+L'erreur espérée\footnote{\french{Ici l'espérance porte sur le choix aléatoire d'un ensemble d'entraînement $D$ de $n$ points tirés à partir de la distribution inconnue $p$. Par exemple (et plus formellement) : $\Esp[(h_D({x'})] = \Esp_{(x_1,y_1)\sim p} \cdots \Esp_{(x_n,y_n)\sim p} \Esp[(h_{\{({x}_1, y_1),\dots,({x}_n, y_n)\}}({x'})]$.}  } de $h_D$ sur un point donné $(x',y')$ est notée $\Esp[(h_D({x'}) - y')^2]$. Deux termes importants qui peuvent être définis sont:
+\begin{itemize}
+    \item Le \emph{biais}, qui est la différence entre l'espérance de la valeur donnée par notre hypothèse en un point ${ x}'$ et la vraie valeur donnée par  $f({x'})$. Plus précisément,
+$$
+\textit{biais}= \Esp[h_D({x'})]-f({x'})
+$$
+\item La \emph{variance}, est une mesure de la dispersion des hypothèse apprises sur des ensemble de données différents, autour de la moyenne $\Esp[h_D({x'})]$. Plus précisément,
+$$
+\textit{variance}= \Esp[(h_D({x'}) - \Esp[h_D({x'})])^2]
+$$
+\end{itemize}
+
+Montrez que l'erreur espérée pour un point donné $({x'},y')$ peut être décomposée en une somme de 3 termes: $(\textit{biais})^2$, $\textit{variance}$, et un terme de $\textit{bruit}$ qui implique $\epsilon$. Vous devez justifier toutes les étapes de dérivation.
+}
+}

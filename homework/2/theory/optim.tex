@@ -1,0 +1,75 @@
+\pagebreak 
+\pagebreak
+\item \textbf{\enfr{Optimization}{Optimisation}}
+\points{10}{10}
+\enfr{
+    Assume a 1D logistic function:
+    $$
+        \sigma(wx) = \frac{1}{1+e^{-wx}}
+    $$
+    where $x,w\in \mathbb{R}$, and the associated cost function:
+    $$
+    L\left(w\right)=-y\log{\sigma(wx)}-(1-y)\log{\left(1-\sigma(wx)\right)}
+    $$
+    
+    }{
+    Soit la régression logistique à une dimension suivante:
+    $$
+        \sigma(wx) = \frac{1}{1+e^{-wx}}
+    $$
+    où $x,w\in \mathbb{R}$, et la fonction de perte associée:
+    $$
+    L\left(w\right)=-y\log{\sigma(wx)}-(1-y)\log{\left(1-\sigma(wx)\right)}
+    $$
+    }
+
+\begin{enumerate}
+    \item{
+    \enfr{
+    Show that the cost function associated with logistic regression is convex. You can use one of the following two definitions of convexity:
+    \begin{itemize}
+        \item $f$ is convex if and only if $$\forall x_1, x_2, t \in [0,1]: f\left(tx_1 + (1-t)x_2\right) < tf\left(x_1\right) + (1-t)f\left(x_2\right)$$
+        \item $f$ is convex if and only if $\frac{d^2 f}{dx^2}(x) > 0$ for all $x$
+    \end{itemize}
+
+    You can also use another definition of convexity but you have to explicitly state it.
+    
+    }{
+    Montrer que la fonction de perte associée avec la régression logisitique est convexe en utilisant une des définitions de convexité suivante
+    \begin{itemize}
+        \item $f$ est convexe si et seulement si $$\forall x_1, x_2, t \in [0,1]: f\left(tx_1 + (1-t)x_2\right) < tf\left(x_1\right) + (1-t)f\left(x_2\right)$$
+        \item $f$ est convexe si et seulement si $\frac{d^2 f}{dx^2}(x) > 0$ for all $x$
+    \end{itemize}
+    
+    
+    Vous pouvez aussi utiliser une autre définition, mais vous devez alors la donner explicitement
+    }
+    }
+    \item 
+    \enfr{
+    Find the gradient of $\sigma(wx)$ at some point $w$.  
+    What are the dimensions of the gradient? 
+    }{
+    Donnez le gradient de $\sigma(wx)$ au point $w$. Quelles sont ses dimensions?
+    }
+    
+    \item 
+    \enfr{
+    Find all of the stationary points of $L(w)$ analytically, i.e. through a closed-form expression (Justify). 
+    }{
+    Donnez une expression analytique pour tous les points stationnaires de $L(w)$, en justifiant votre réponse.
+    }
+    
+    \item 
+    \enfr{
+    Show how the gradient descent update rule looks like in this case by substituting $\sigma(wx)$ with its form above.
+    Use the following notation: 
+    $w_0$ represents our point at initialization, $w_1$ represents our point after one step, etc. 
+    }{
+    Donnez l'expression de la règle de mise à jour de l'algorithme de descente de gradient, en substituant $\sigma(wx)$ par son expression.
+    Utilisez la notation suivante: 
+    $w_0$ est le point initial, $w_1$ est le point obtenu après une itération, etc.
+    }
+
+\end{enumerate}
+

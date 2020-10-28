@@ -1,0 +1,96 @@
+\renewcommand{\vec}[1]{{\bf #1}}
+\newcommand{\mat}[1]{{\bf #1}}
+\newcommand{\ten}[1]{\mat{\ensuremath{\boldsymbol{\mathcal{#1}}}}}
+\newcommand{\mats}[1]{\ensuremath{\mathbf{\boldsymbol{#1}}}}
+\newcommand{\vecs}[1]{\ensuremath{\mathbf{\boldsymbol{#1}}}}
+
+
+\newcommand{\loss}{\ell}
+
+\newcommand{\sigmoid}{\sigma}
+\providecommand{\alert}[1]{{\color{MyRed}#1}}
+
+
+\newcommand{\x}{\vec{x}}
+\newcommand{\y}{\vec{y}}
+\newcommand{\z}{\vec{z}}
+\renewcommand{\u}{\vec{u}}
+\renewcommand{\v}{\vec{v}}
+\newcommand{\vmu}{\vecs{\mu}}
+\newcommand{\w}{\vec{w}}
+\newcommand{\X}{\mat{X}}
+\newcommand{\Y}{\mat{Y}}
+\newcommand{\W}{\mat{W}}
+\newcommand{\K}{\mat{K}}
+\newcommand{\I}{\mat{I}}
+\newcommand{\M}{\mat{M}}
+\newcommand{\U}{\mat{U}}
+\newcommand{\D}{\mat{D}}
+\newcommand{\A}{\mat{A}}
+\newcommand{\B}{\mat{B}}
+\renewcommand{\H}{\mat{H}}
+\renewcommand{\S}{\mat{S}}
+\renewcommand{\b}{\vec{b}}
+\renewcommand{\a}{\vec{a}}
+\newcommand{\MPhi}{\mats{\Phi}}
+\newcommand{\Mphi}{\mats{\Phi}}
+
+\DeclareMathOperator*{\Prob}{\mathbb{P}}
+\DeclareMathOperator*{\Esp}{\mathbb{E}}
+\newcommand{\ind}{\mathrm{I}}
+
+%% Tensor stuff
+\newcommand{\T}{\ten{T}}
+\newcommand{\ttm}[1]{\times_{#1}}
+% tensor times vector
+\newcommand{\ttv}[1]{\bullet_{#1}}
+% matricisation
+\newcommand{\tenmat}[2]{\mat{#1}_{(#2)}}
+\newcommand{\tenmatpar}[2]{(#1)_{(#2)}}
+
+%% Products
+\newcommand{\kron}{\otimes}
+\newcommand{\krao}{\odot}
+\newcommand{\hadam}{*}
+\newcommand{\outprod}{\otimes}
+\newcommand{\dirsum}{\oplus}
+
+%% Sets
+\newcommand{\Xcal}{\mathcal{X}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Ycal}{\mathcal{Y}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\Rbb}{\mathbb{R}}
+
+%% Miscellaneous math stuff
+
+
+\newcommand{\bmat}[1]{\left[\begin{matrix}
+#1
+\end{matrix}\right]}
+
+
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\inv}{^{-1}}
+\DeclareMathOperator*{\Tr}{Tr} %trace
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\vectorize}[1]{\mathrm{vec}(#1)}
+\DeclareMathOperator*{\reshape}{reshape}
+\newcommand{\eqdef}{\triangleq}
+\newcommand{\vtimes}[1]{\ \overline{\times}_{#1}\ }
+\DeclareMathOperator*{\rank}{rank}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\Ker}{\mathrm{Ker}}
+\renewcommand{\Im}{\mathrm{Im}}
+\newcommand{\bigo}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\singv}{\mathfrak{s}}
+\newcommand{\vspan}[1]{span(#1)}
+\newcommand{\dotprod}[2]{\langle #1, #2\rangle}

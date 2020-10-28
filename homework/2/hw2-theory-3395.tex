@@ -1,0 +1,116 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,french,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{bm}
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+\makeatother
+
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\makeatletter
+\addto\extrasfrench{%
+   \providecommand{\og}{\leavevmode\flqq~}%
+   \providecommand{\fg}{\ifdim\lastskip>\z@\unskip\fi~\frqq}%
+}
+
+\makeatother
+ 
+\usepackage{etoolbox}
+\input{0/commands}
+%%%%%%%%% STUDENTS CHANGE THIS
+
+\providetoggle{undergrad}
+\settoggle{undergrad}{true}     %%% "true" if 3395 or "false" if 6390
+
+\providetoggle{french}
+\settoggle{french}{true}        %%% "true" if french or "false" if english
+
+\providetoggle{final}            
+\settoggle{final}{false}        %%% "true" for your final homework submission (removes instructions)
+
+%%%%%%%%%%%%%%%%%%%%% ^^^^^
+
+
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{todonotes}
+\newcommand{\ioannis}[1]{\todo[inline,color=green!40,caption={}]{{\it Ioannis:~}#1}}
+\newcommand{\guillaume}[1]{\todo[inline,color=blue!40,caption={}]{{\it Guillaume:~}#1}}
+
+\newcommand{\gradpoints}[1]{\textcolor{red}{Graduates #1 pts}}
+\newcommand{\undergradpoints}[1]{\textcolor{orange}{Undergraduates #1 pts}}
+
+
+\newcommand{\french}[1]{ {\color{blue} #1} }
+
+
+% toggle between grad and undergrad version
+\usepackage{etoolbox}
+\providetoggle{undergrad}
+\settoggle{undergrad}{true}
+\providetoggle{grad}
+\settoggle{grad}{false}
+%%%
+% you can use e.g. \iftoggle{undergrad}{write something only in the undergrad version}{this will go only in the grad version}
+%
+
+% set points for undergrads and grads using one command:
+\newcommand{\points}[2]{\iftoggle{undergrad}{{\color{red}[#1 points]}}{\color{red}[#1 points]}}
+% usage: if the question is worth 5 points for undergrads and 3 for grads type
+% \points{5}{3}
+
+\usepackage[colorlinks=true]{hyperref}
+
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\ith}[1]{^{(#1)}}
+
+\input{2/theory/macros_guillaume.tex}
+
+\begin{document}
+
+\setlength{\parskip}{0.3cm} \setlength{\parindent}{0cm}
+
+\begin{center}
+\textbf{IFT-3395 Fondements de l'Apprentissage Machine} \\
+\textbf{Professeur: Guillaume Rabusseau }
+\par\end{center}{\large \par}
+
+\begin{center}
+\textbf{\LARGE{\enfr{Homework 2 - Theoretical part}{Devoir 2 - Partie Th\'eorique}}} \\
+
+\par\end{center}{\LARGE \par}
+
+\input{2/theory/instructions.tex}
+
+\begin{enumerate}
+\input{2/theory/bias-variance.tex}
+\input{2/theory/optim.tex}
+\input{2/theory/lstsq-ridge.tex}
+\input{2/theory/k-fold.tex}
+\input{2/theory/feature-maps.tex}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Practical Part (7 pts) \footnotesize{\textit{Partie pratique}}}
+
+% \input{homework1/practical-part.tex}
+
+
+
+
+\end{document}

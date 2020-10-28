@@ -1,0 +1,92 @@
+ \newcommand{\hloo}[1]{h_{D\setminus #1}}
+ \newcommand{\simiid}{{\sim \atop \textit{iid}}}
+
+ \item \textbf{\enfr{k-fold cross-validation }{Validation croisée "k-fold"}}
+\points{10}{10}
+
+
+\enfr{
+Let $D = \{(x_1,y_1),\dots,(x_n,y_n)\}$ be a training sample set drawn i.i.d. from an unknown distribution $p$. To estimate the risk (a.k.a. the test error) of a learning algorithm using $D$, k-fold cross validation~(CV) involves using the  $i$th fold of the data $D_i= \{ (x_j,y_j) \mid j \in {\text{ind}[i]}\}$~(where $\text{ind}[i]$ are the indices of the data points in the $i$th fold) to evaluate the risk of the hypothesis returned by a learning algorithm trained on all the data except those in the $i$th fold, $D_{\setminus i} = \{(x_j, y_j)\mid j \notin \text{ind}[i]\}$.
+ 
+ Formally, if we denote the hypothesis returned by the learning algorithm trained on $D_{\setminus i}$ as $\hloo{i}$, the k-fold CV error is given by
+$$ \mathrm{error}_{k-fold} = \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} l(\hloo{i}(x_j), y_j) $$
+where $l$ is the loss function.
+
+In this exercise, we will investigate some interesting properties of this estimator.
+
+}{
+Soit  $D = \{(x_1,y_1),\dots,(x_n,y_n)\}$ un ensemble de données échantillonné i.i.d. à partir d'une distribution inconnue $p$.
+Pour estimer le risque (erreur de test) d'un algorithme d'apprentissage en utilisant $D$, la validation croisée "k-fold" utilise la \textit{i-ème} portion des données $D_i= \{ (x_j,y_j) \mid j \in {\text{ind}[i]}\}$ (où $\text{ind}[i]$ sont les indices des points de données dans la \textit{i-ème} portion) pour estimer le risque de l'hypothèse retournée par un algorithme d'apprentissage entraîné sur toutes les données sauf la \textit{i-ème} portion : $D_{\setminus i} = \{(x_j, y_j)\mid j \notin \text{ind}[i]\}$.
+ 
+ Plus précisément, si on note $\hloo{i}$ l'hypothèse obtenue par l'algorithme d'apprentissage entraîné sur les données $D_{\setminus i}$, l'erreur de validation croisée k-fold est donnée par:
+$$ \mathrm{error}_{k-fold} = \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} l(\hloo{i}(x_j), y_j) $$
+où $l$ est la fonction de perte.
+
+Dans cet exercice, nous nous intéressons à certaines des propriétés de cet estimateur}
+
+\paragraph{\enfr{k-fold is unbiased }{k-fold est non biaisé}}
+\begin{enumerate}
+    \item 
+    \enfr{
+    \emph{State} the definition of the risk of a hypothesis $h$ for a regression problem with the mean squared error loss function. 
+    }{
+    \emph{Rappelez} la définition du risque d'une hypothèse $h$ pour un problème de régression avec la fonction de coût erreur quadratique
+    }
+    \item 
+    \enfr{
+    
+Let $D'$ denote a dataset of size $n-\frac{n}{k}$. \emph{Show} that
+    $$\Esp_{D\sim  p }[\mathrm{error}_{k-fold}] = \Esp_{D'\sim  p ,\atop (x,y)\sim  p }[(y-h_{D'}(x))^2]$$
+
+where the notation $D\sim p $ means that $D$ is drawn i.i.d. from the distribution $p$, $h_D$ denotes the hypothesis returned by the learning algorithm trained on $D$. Explain how this shows that $\mathrm{error}_{k-fold}$ is an (almost) unbiased estimator of the risk of $h_D$.
+
+    }{
+    En utilisant $D'$ pour dénoter un ensemble de données de taille $n-\frac{n}{k}$, \emph{montrez} que
+        $$\Esp_{D\sim  p }[\mathrm{error}_{k-fold}] = \Esp_{D'\sim  p ,\atop (x,y)\sim  p }[(y-h_{D'}(x))^2]$$
+    où la notation $D\sim  p $ signifie que $D$ est échantillonné i.i.d. à partir de la distribution $p$ et où $h_D$ est l'hypothèse obtenue par l'algorithme d'apprentissage sur les données $D$. Expliquez en quoi cela montre que $\mathrm{erreur}_{k-fold}$ est un estimateur (presque) non-biaisé du risque de $h_D$.
+    }
+    \end{enumerate}
+    
+    \paragraph{\enfr{Complexity of k-fold }{Complexité de k-fold}}
+    \enfr{We will now consider k-fold in the context of linear regression where inputs $\x_1,\dots,\x_n$ are $d$-dimensional vectors. Similarly to exercise \ref{ex.lstsq.ridge}, we use $\X\in\mathbb{R}^{n\times d}$ and $\y\in\mathbb{R}^{n}$ to denote the input matrix and the vector of outputs. 
+    }{
+    Nous étudions maintenant la validation croisée k-fold pour la régression linéaire où les données d'entrées $\x_1,\dots,\x_n$ sont des vecteurs à $d$ dimensions. Comme dans l'exercice \ref{ex.lstsq.ridge}, nous utilisons $\X\in\mathbb{R}^{n\times d}$ et $\y\in\mathbb{R}^{n}$ pour représenter la matrice des données d'entrée et le vecteur des sorties correspondantes.
+    }
+     \begin{enumerate}[resume]
+     \item 
+     \enfr{
+     Assuming that the time complexity of inverting a matrix of size $m\times m$ is in $\bigo{m^3}$, \emph{what is} the complexity of computing the solution of linear regression on the dataset $D$? (i.e. similar to the solution of \ref{ex.lstsq.ridge} (a))
+     }{
+     En considérant que la complexité en temps pour inverser une matrice de taille $m\times m$ est en $\bigo{m^3}$, \emph{quelle sera} la complexité du calcul de la solution de la régression linéaire sur l'ensemble de données $D$?
+     }
+
+     \item \enfr{
+     Let $\X_{-i} \in \mathbb{R}^{(n-\frac{n}{k})\times d}$ and $\y_{-i} \in \mathbb{R}^{(n-\frac{n}{k})}$ be the data matrix and output vector obtained by removing the rows corresponding to the $i$th fold of the data. Using the formula for $error_{k-fold}$ mentioned at the start of this question, \emph{write down} a formula of the k-fold CV error for linear regression. Specifically, substitute the loss expression with the actual loss obtained by using the analytical solution for linear regression. \emph{What is} the complexity of evaluating this formula?
+     }{
+     Soient $\X_{-i} \in \mathbb{R}^{(n-\frac{n}{k})\times d}$ and $\y_{-i} \in \mathbb{R}^{(n-\frac{n}{k})}$ la matrice des données d'entrées et le vecteurs des sorties obtenus en supprimant les lignes de la \textit{i-ème} portion de $\X$. En utilisant la formule pour $error_{k-fold}$ mentionnée précédemment, \emph{écrivez} l'expression de l'erreur de validation croisée "k-fold" pour la régression linéaire. \emph{Quelle est} la complexité algorithmique du calcul de cette formule?
+     }
+
+     \item \iftoggle{undergrad}{{\color{red} [bonus]}}{} \enfr{
+     It turns out that for the special case of linear regression, the k-fold validation error can be computed more efficiently. \emph{Show} that in the case of linear regression we have
+$$ \mathrm{error}_{k-fold} = \frac{1}{k}
+\sum\limits_{i=1}^k \left(
+\frac{
+\y_i
+- \X_i \w^*
+}
+{1-\X_i(\X^\top\X)^{-1} \X_i^\top}
+\right)^2$$
+where $\w^*=(\X^\top\X)^{-1}\X^\top\y$ is the solution of linear regression computed on the whole dataset $D$. \emph{What is} the complexity of evaluating this formula?
+     }{
+     Dans le cas particulier de la régression linéaire, l'erreur k-fold peut être calculée de manière plus efficace.  \emph{Montrez} que dans le cas de la régression linéaire, on a:
+$$ \mathrm{error}_{k-fold} = \frac{1}{k}
+\sum\limits_{i=1}^k \left(
+\frac{
+\y_i
+- \X_i \w^*
+}
+{1-\X_i(\X^\top\X)^{-1} \X_i^\top}
+\right)^2$$
+     où $\w^*=(\X^\top\X)^{-1}\X^\top\y$ est la solution de la régression linéaire calculée sur tout l'ensemble de données $D$. \emph{Quelle est} la complexité du calcul de cette expression? 
+     }
+ \end{enumerate}

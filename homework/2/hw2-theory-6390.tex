@@ -1,0 +1,515 @@
+\documentclass{article}
+
+\usepackage[french]{babel} 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{float}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{hyperref}
+%Dessins plz
+
+ \usepackage[usenames,dvipsnames]{pstricks}
+ \usepackage{epsfig}
+ \usepackage{pst-grad} % For gradients
+ \usepackage{pst-plot} % For axes
+ \usepackage[space]{grffile} % For spaces in paths
+ \usepackage{etoolbox} % For spaces in paths
+ \makeatletter % For spaces in paths
+ \patchcmd\Gread@eps{\@inputcheck#1 }{\@inputcheck"#1"\relax}{}{}
+ \makeatother
+
+
+\usetikzlibrary{automata,positioning,arrows}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+%\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problème \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problème \arabic{#1} (suite)}{Suite du problème \arabic{#1} à la page suivante\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problème \arabic{#1} (suite)}{Suite du problème \arabic{#1} à la page suivante\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problème \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Question \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Question \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework 2 - Theoretical}
+\newcommand{\hmwkDueDate}{Oct 2020}
+\newcommand{\hmwkClass}{\ \ IFT 6390}
+\newcommand{\hmwkClassTime}{}%Section 
+\newcommand{\hmwkClassInstructor}{Professor: Dr. Mitliagkas}
+\newcommand{\hmwkAuthorName}{Team:\\
+\textbf{Francis Carter - 20175196}\\\textbf{Matteo Esposito - 20173298}}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Partie \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+
+%floor and ceiling functions
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Contradiction et limites
+\newcommand{\absurde}{\rightarrow \leftarrow}
+\newcommand{\tend}{\rightarrow}
+\newcommand{\tendUnif}{\xrightarrow{\text{unif}}}
+%make this work
+%\newcommand{\par}[1]{\xrightarrow{\text{#1}}}
+
+
+
+% ensembles
+\newcommand{\naturel}{\mathbb{N}}
+\newcommand{\entier}{\mathbb{Z}}
+\newcommand{\rationnel}{\mathbb{Q}}
+\newcommand{\reel}{\mathbb{R}}
+\newcommand{\complexe}{\mathbb{C}}
+\newcommand{\compl}[1]{\overline{#1}}
+\newcommand{\e}{\varepsilon}
+\let\emptyset\varnothing
+
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\dy}{\mathrm{d}y}
+\newcommand{\dt}{\mathrm{d}t}
+
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+
+%lul
+\newcommand{\shrug}[1][]{%
+\begin{tikzpicture}[baseline,x=0.8\ht\strutbox,y=0.8\ht\strutbox,line width=0.125ex,#1]
+\def\arm{(-2.5,0.95) to (-2,0.95) (-1.9,1) to (-1.5,0) (-1.35,0) to (-0.8,0)};
+\draw \arm;
+\draw[xscale=-1] \arm;
+\def\headpart{(0.6,0) arc[start angle=-40, end angle=40,x radius=0.6,y radius=0.8]};
+\draw \headpart;
+\draw[xscale=-1] \headpart;
+\def\eye{(-0.075,0.15) .. controls (0.02,0) .. (0.075,-0.15)};
+\draw[shift={(-0.3,0.8)}] \eye;
+\draw[shift={(0,0.85)}] \eye;
+% draw mouth
+\draw (-0.1,0.2) to [out=15,in=-100] (0.4,0.95); 
+\end{tikzpicture}}
+
+
+%shortcut
+\renewcommand{\theenumii}{\arabic{enumii}}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\ifff}{\leftrightarrow}
+\newcommand{\Poly}{\mbox{\bf P}}
+\newcommand{\NP}{\mbox{\bf NP}}
+\newcommand{\NPC}{\mbox{\bf NPC}}
+\newcommand{\CNP}{\mbox{\bf Co-NP}}
+\newcommand{\R}{\mbox{\bf R}}
+\newcommand{\RE}{\mbox{\bf RE}}
+\newcommand{\donne}{\stackrel{\hspace{-3pt}*}{|\hspace{-5pt}-\hspace{-5pt}-\
+}}
+
+\newtheorem{cor}{Corollaire}
+\newtheorem{obs}{Observation}
+\newtheorem{con}{Convention}
+\newtheorem{dfn}{D\'efinition}
+\newtheorem{thm}{Th\'eor\`eme}
+\newtheorem{lem}{Lemme}
+\newtheorem{prop}{Proposition}
+\newtheorem{prob}{Probl\`eme}
+\newtheorem{ex}{Exercise}
+\newtheorem{rem}{Remarque}
+\newtheorem{algo}{Algorithme}
+
+
+\newcommand{\re}{{\mathbb R}}
+\newcommand{\rep}{{\mathbb R}^{> 0}}
+\newcommand{\renn}{{\mathbb R}^{\geq 0}}
+\newcommand{\nat}{{\mathbb N}}
+\newcommand{\intg}{{\mathbb Z}}
+\newcommand{\intgp}{\intg^{>0)}}
+\newcommand{\intgn}{\intg^{<0)}}
+\newcommand{\intgnp}{\intg^{\geq 0}}
+\newcommand{\intgnn}{\intg^{\leq 0}}
+\newcommand{\barr}{\overline}
+\newcommand{\np}{\mbox{{\it NP}}}
+\newcommand{\npc}{\mbox{{\it NPC}}}
+\newcommand{\cnp}{\mbox{{\it co-NP}}}
+\newcommand{\p}{\mbox{{\it P}}}
+\newcommand{\cp}{\mbox{{\it co-P}}}
+\newcommand{\twobox}{\marginpar{\huge {$\Box$ \hspace{0.5cm}$\Box$} }} 
+\newcommand{\repbox}{\marginpar{{\Large \begin{tabular}{|c|}\hline \ \ \
+\\ \hline \end{tabular}}} } 
+\newcommand{\ssi}{si et seulement si }
+\renewcommand{\theprob}{\thesection.\arabic{prob}}
+\newcommand{\diam}{{\rm diam}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\cha}{cha\^\i ne}
+\newcommand{\ecc}{{\rm ec}}
+\newcommand{\vcc}{{\rm vc}}
+
+
+
+
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+
+\pagebreak
+
+
+\begin{homeworkProblem}
+\begin{align*}
+    \mathrm{E}\left[(y'-h_D(x'))^{2}\right] &=\mathrm{E}\left[(f(x)+\epsilon-h_D(x'))^{2}\right]
+\end{align*}
+
+We start by adding and removing the term $\mathrm{E}[h_D(x')]$ then we square the sum of terms within the brackets in the expectation.
+
+\begin{align*}
+    &=\mathrm{E}\left[(f(x)+\epsilon-h_D(x')+\mathrm{E}[h_D(x')]-\mathrm{E}[h_D(x')])^{2}\right] \\
+    &=\mathrm{E}\left[(f(x)-\mathrm{E}[h_D(x')])^{2}\right]+\mathrm{E}\left[\epsilon^{2}\right]+\mathrm{E}\left[(\mathrm{E}[h_D(x')]-h_D(x'))^{2}\right]+\\
+    & 2 \mathrm{E}[(f(x)-\mathrm{E}[h_D(x')]) \epsilon]+2 \mathrm{E}[\epsilon(\mathrm{E}[h_D(x')]-h_D(x'))]+\\
+    & 2 \mathrm{E}[(\mathrm{E}[h_D(x')]-h_D(x'))(f(x)-\mathrm{E}[h_D(x')])]\\
+    &=(f(x)-\mathrm{E}[h_D(x')])^{2}+\mathrm{E}\left[\epsilon^{2}\right]+\mathrm{E}\left[(\mathrm{E}[h_D(x')]-h_D(x'))^{2}\right]+\\
+    & 2(f(x)-\mathrm{E}[h_D(x')]) \mathrm{E}[\epsilon]+2 \mathrm{E}[\epsilon] \mathrm{E}[\mathrm{E}[h_D(x')]-h_D(x')]+\\
+    & 2 \mathrm{E}[\mathrm{E}[h_D(x')]-h_D(x')](f(x)-\mathrm{E}[h_D(x')]) \\
+\end{align*}
+
+Since $Var[\epsilon] = E[\epsilon^2] - E[\epsilon]^2$, and $E[c] = 0$ where $c$ is a constant value, we have that $Var[\epsilon] = E[\epsilon^2]$. Then,
+
+\begin{align*}
+    &=(f(x)-\mathrm{E}[h_D(x')])^{2}+\mathrm{E}\left[\epsilon^{2}\right]+\mathrm{E}\left[(\mathrm{E}[h_D(x')]-h_D(x'))^{2}\right] \\
+    &=(f(x)-\mathrm{E}[h_D(x')])^{2}+\operatorname{Var}[\epsilon]+\operatorname{Var}[h_D(x')] \\
+    &=\operatorname{Bias}[h_D(x')]^{2}+\operatorname{Var}[\epsilon]+\operatorname{Var}[h_D(x')] \\
+    &=\operatorname{Bias}[h_D(x')]^{2}+\sigma^{2}+\operatorname{Var}[h_D(x')] \qquad \square
+\end{align*}
+
+The final expression satisfying the requirements of the question. (i.e. the expectation is broken down into a sum of $\text{}$
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    (a)\\
+    From above, we have that $$\sigma(wx) = \frac{1}{1+e^{-wx}}$$
+    where $x,w\in \mathbb{R}$ and $$L\left(w\right)=-y\log{\sigma(wx)}-(1-y)\log{\left(1-\sigma(wx)\right)}$$ We will use the 2nd definition of convexity for our proof that $L(w)$ is convex. First, we will simplify $L(w)$
+    
+    \begin{align*}
+        L(w) &= -y\log\left(\frac{1}{1+e^{-wx}}\right) - (1-y)\log\left(\frac{e^{-wx}}{1+e^{-wx}}\right)\\  
+        &= y\log(1+e^{-wx}) - (1-y)(\log(e^{-wx}) - \log(1+e^{-wx}))
+    \end{align*}
+    
+    Next, we take the first and second derivatives of $L(w)$ w.r.t $w$.
+    
+    \begin{align*}
+        \frac{\partial L}{\partial w} &= \frac{-yxe^{-wx}}{1+e^{-wx}} - (1-y)\left(-x + \frac{xe^{-wx}}{1+e^{-wx}}\right) \\
+        &= \frac{-yxe^{-wx}}{1+e^{-wx}} + x - \frac{xe^{-wx}}{1+e^{-wx}} - xy + \frac{yxe^{-wx}}{1+e^{-wx}} \\
+        &= x - \frac{xe^{-wx}}{1+e^{-wx}} - xy
+    \end{align*}
+    
+    Then,
+    
+    \begin{align*}
+        \frac{\partial^2 L}{\partial w^2} &= \frac{\partial}{\partial w}\left(x - \frac{xe^{-wx}}{1+e^{-wx}} + xy\right) \\
+        &= \frac{x^2e^{-wx}(1+e^{-wx}) - xe^{-wx}(xe^{-wx})}{(1+e^{-wx})^2} \\
+        &= \frac{x^2e^{-wx} + x^2e^{-2wx} - x^2e^{-2wx}}{(1+e^{-wx})^2} \\
+        &= \frac{x^2e^{-wx}}{(1+e^{-wx})^2} \\
+    \end{align*}
+    
+    Since $\frac{x^2e^{-wx}}{(1+e^{-wx})^2} > 0 \; \forall \; w$, the cost function associated with logistic regression is convex. $\square$
+    \\\\
+    
+    (b)\\ 
+    The gradient of a function is defined as a vector of its partial derivatives. We will start by showing a single derivative for $\sigma(wx)$ w.r.t. $w$. $$\frac{\partial \sigma(wx)}{\partial w}&= \frac{xe^{-wx}}{(1+e^{-wx})^2}$$ Therefore, the gradient will be, $$\nabla \sigma(wx) = \begin{pmatrix} \frac{\partial \sigma(wx)}{\partial w_1} \\ \frac{\partial \sigma(wx)}{\partial w_2} \\ \ldots \\ \frac{\partial \sigma(wx)}{\partial w_m} \end{pmatrix}$$ It will have dimension $m$x$1$ where m is the length of the vector of parameters $(w_i, i \in \{1, \ldots, m\})$. If we are taking this gradient a a single point $w$, then the dimension is 1x1.
+    \\\\
+    
+    (c)\\
+    A stationery point is defined as a point where the first derivative of a function is zero. So,
+    
+    \begin{align*}
+        x - \frac{xe^{-wx}}{1+e^{-wx}} - xy &= 0 \\
+        (x)(1-y)(1+e^{-wx}) &= xe^{-wx} \\
+        1 + e^{-wx} -y - ye^{-wx} &= e^{-wx} \\
+        1 - y &= ye^{-wx} \\
+        -\frac{1}{x}\ln\frac{(1-y)}{y} &= w \longrightarrow \text{Stationary point expression}
+    \end{align*}
+    \\\\
+    
+    (d)\\
+    The standard form of the gradient descent update function is $$w_{t+1} = w_{t} - \alpha_t\nabla_w(L(w))$$ We can substitute $\nabla_w(L(w))$ and $\sigma(wx) = \frac{1}{1+e^{-wx}}$ from our problem to reduce it to the following update rule:
+    
+    \begin{align*}
+        w_1 &= w_0 - \alpha\left(x - \frac{xe^{-wx}}{1+e^{-wx}} - xy\right)\\
+        &= w_0 - \alpha\left(x - x(1-\sigma(wx)) - xy\right)\\
+        &= w_0 - \alpha\left(x(\sigma(wx) - y)\right)\\
+    \end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+(a)\\ The squared error loss function provided needs to be converted to matrix form to satisfy the requirements of the question.
+$$
+J(\mathbf{W})=\sum_{i=1}^{n}\left\|\mathbf{y}_{i}-\mathbf{W}^{\top} \mathbf{x}_{i}\right\|_{2}^{2} = \left\|\mathbf{Y}-\mathbf{W}^{\top} \mathbf{X}\right\|^{2}
+$$
+and since our goal is to find $\mathbf{W}^*$ as per the following,
+$$
+\mathbf{W}^{*}=\underset{\mathbf{W} \in \mathbb{R}^{d \times p}}{\arg \min } J(\mathbf{W})
+$$
+we will expand the expression for $J(\mathbf{W})$ and take $\frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} = 0$ and solve for $\mathbf{W}^*$.
+
+\begin{align*}
+    J(\mathbf{W}) &= (\mathbf{Y} - \mathbf{W}^{\top}\mathbf{X})^{\top}(\mathbf{Y} - \mathbf{W}^{\top}\mathbf{X})\\
+    &= (\mathbf{Y}^{\top} - \mathbf{X}^{\top}\mathbf{W})(\mathbf{Y} - \mathbf{W}^{\top}\mathbf{X})\\
+    &= \mathbf{Y}^{\top}\mathbf{Y} - \mathbf{Y}^{\top}\mathbf{W}^{\top}\mathbf{X} - \mathbf{X}^{\top}\mathbf{W}\mathbf{Y} + \mathbf{X}^{\top}\mathbf{W}\mathbf{W}^{\top}\mathbf{X}\\
+\end{align*}
+
+Since $\mathbf{X}^{\top}\mathbf{W}\mathbf{Y} = (\mathbf{X}^{\top}\mathbf{W}\mathbf{Y})^{\top} = \mathbf{Y}^{\top}\mathbf{W}^{\top}\mathbf{X}$,
+
+\begin{align*}
+    J(\mathbf{W}) &= \mathbf{Y}^{\top}\mathbf{Y} - \mathbf{Y}^{\top}\mathbf{W}^{\top}\mathbf{X} - \mathbf{X}^{\top}\mathbf{W}\mathbf{Y} + \mathbf{X}^{\top}\mathbf{W}^{\top}\mathbf{W}\mathbf{X}\\
+    &= \mathbf{Y}^{\top}\mathbf{Y} - 2\mathbf{X}^{\top}\mathbf{W}\mathbf{Y} + \mathbf{X}^{\top}\mathbf{W}^{\top}\mathbf{W}\mathbf{X}\\
+\end{align*}
+
+Then,
+
+\begin{align*}
+    \frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} &= - 2\mathbf{X}^{\top}\mathbf{Y} + 2\mathbf{X}^{\top}\mathbf{W}^{\top}\mathbf{X}\\
+    0 &= - 2\mathbf{X}^{\top}\mathbf{Y} - 2\mathbf{X}^{\top}\mathbf{X}\mathbf{W}\\
+    \mathbf{X}^{\top}\mathbf{X}\mathbf{W} &= \mathbf{X}^{\top}\mathbf{Y} \\
+    \mathbf{W}^* &= (\mathbf{X}^{\top}\mathbf{X})^{-1}(\mathbf{X}^{\top}\mathbf{Y})\\
+\end{align*}
+
+\\\\
+
+(b)\\
+In the case of ridge regression our loss function becomes:
+
+$$J(\mathbf{W}) = \left\|\mathbf{Y}-\mathbf{W}^{\top} \mathbf{X}\right\|^{2} + \lambda\left\|\mathbf{W}\right|_{F}^{2}$$
+
+Expanding the terms we have,
+\begin{align*}
+    J(\mathbf{W}) &= (\mathbf{Y} - \mathbf{W}^{\top}\mathbf{X})^{\top}(\mathbf{Y} - \mathbf{W}^{\top}\mathbf{X}) + \lambda\mathbf{W}^{\top}\mathbf{W}\\
+    &= (\mathbf{Y}^{\top} - \mathbf{X}^{\top}\mathbf{W})(\mathbf{Y} - \mathbf{W}^{\top}\mathbf{X}) + \lambda\mathbf{W}^{\top}\mathbf{W}\\
+    &= \mathbf{Y}^{\top}\mathbf{Y} - \mathbf{Y}^{\top}\mathbf{W}^{\top}\mathbf{X} - \mathbf{X}^{\top}\mathbf{W}\mathbf{Y} + \mathbf{X}^{\top}\mathbf{W}\mathbf{W}^{\top}\mathbf{X} + \lambda\mathbf{W}^{\top}\mathbf{W}\\
+    &= \mathbf{Y}^{\top}\mathbf{Y} - \mathbf{Y}^{\top}\mathbf{W}^{\top}\mathbf{X} - \mathbf{X}^{\top}\mathbf{W}\mathbf{Y} + \mathbf{X}^{\top}\mathbf{W}^{\top}\mathbf{W}\mathbf{X} + \lambda\mathbf{W}^{\top}\mathbf{W}\\
+    &= \mathbf{Y}^{\top}\mathbf{Y} - 2\mathbf{X}^{\top}\mathbf{W}\mathbf{Y} + \mathbf{X}^{\top}\mathbf{W}^{\top}\mathbf{W}\mathbf{X} + \lambda\mathbf{W}^{\top}\mathbf{W}\\
+\end{align*}
+
+Then,
+
+\begin{align*}
+    \frac{\partial J(\mathbf{W})}{\partial \mathbf{W}} &= - 2\mathbf{X}^{\top}\mathbf{Y} + 2\mathbf{X}^{\top}\mathbf{W}^{\top}\mathbf{X} + 2\lambda\mathbf{W}\\
+    0 &= - 2\mathbf{X}^{\top}\mathbf{Y} - 2\mathbf{X}^{\top}\mathbf{X}\mathbf{W} + 2\lambda\mathbf{W}\\
+    (\mathbf{X}^{\top}\mathbf{X} + \lambda\mathbf{I})\mathbf{W} &= \mathbf{X}^{\top}\mathbf{Y} \\
+    \mathbf{W}^* &= (\mathbf{X}^{\top}\mathbf{X} + \lambda\mathbf{I})^{-1}(\mathbf{X}^{\top}\mathbf{Y})\\
+\end{align*}
+
+In this case, we need $\mathbf{X}^{\top}\mathbf{X} + \lambda\mathbf{I}$ to be invertible (not $\mathbf{X}^{\top}\mathbf{X}$) whereas in the previous ordinary least squares estimator case we needed $\mathbf{X}^{\top}\mathbf{X}$ to be invertible. Therefore, in the case where $\mathbf{X}^{\top}\mathbf{X}$ is not invertible, a solution would be to add a lambda term $(\lambda\mathbf{I})$ to the diagonal of the matrix, and make sure this is invertible.
+\\\\
+
+(c)\\
+This is related to the idea of shrinkage. Our lambda term ensures that our weights are smaller than without it. Our predictions will therefore get closer to the mean and will therefore have less variance overall (same for our errors).
+\\\\
+
+(d)\\
+In all cases, as lambda increases, variance decreases and bias of the estimator increases. When lambda is small, the predictions are more prone to noise but they are more accurate on the training set. The opposite holds true when lambda is large.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+(a)\\
+The true risk is:
+$$R(f) = \mathbb{E}_{p(x,y)}[(\mathbf{y}-h(\mathbf{x}))^2]$$
+Which we approximate with the empirical risk:
+$$\hat{R}(f,D) = \frac{1}{|D|}\sum_{(x,y) \in D}(\mathbf{y}-h(\mathbf{x}))^2$$
+\\\\
+
+(b)\\
+$$\mathbb{E}_{D\sim  p }[\mathrm{error}_{k-fold}] = \mathbb{E}_{D\sim  p }[\frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} l(h_{D \setminus i}(x_j), y_j)]$$
+We can rewrite this as:
+$$= \mathbb{E}_{D\sim  p }\quad [\mathbb{E}_{D \setminus i}\quad [\mathbb{E}_{(x,y) \sim D} \quad [l(h_{D \setminus i}(x_j), y_j)]]]$$
+since $D\setminus i$ and $D$ are distributed according to $p$, we can cancel either the first or the second expectation. Furthermore, both $D\setminus i$ and $D$ are come from the same distribution as $D'$, so we can replace one of them with $D'$. Lastly, we replace the general loss term with the squared error loss and this gives:
+$$= \mathbb{E}_{D'\sim  p ,\atop (x,y)\sim  p }[(y-h_{D'}(x))^2]$$
+\\\\
+
+(c)\\
+Since the closed form solution for $\mathbf{W}$ is $(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$, we are therefore taking the inverse of a $d \times d$ matrix which requires $O(d^3)$. Supposing we multiply matrices the naive way, multiplying an $d \times n$ with an $n \times d$ matrix will require $O(dnd)$. If $n$ is of the same order as $d$, the computational complexity will remain $O(d^3)$ for the entire expression. Otherwise it will be $O(dnd)$.
+\\\\
+
+(d)\\
+$$\mathrm{error}_{k-fold} = \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} l(h_{D \setminus i}(x_j), y_j)$$
+We fill in the loss function. $\mathbf{w}\in \mathbb{R}^d$. 
+$$= \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} (\mathbf{y_{i}} - \mathbf{w}_{D \setminus i}^T \mathbf{X_{i}})_j^2$$
+The matrix multiplication $\mathbf{W}^T \mathbf{X_{ij}}$ will require $O(d)$ steps, and the subtraction and raising to the power of 2 will require a similar amount. This will have to be repeated for the $k$ repetitions of validation, and for each of the $\frac{n}{k}$ datapoints in each sub-validation, leading to a time complexity for solving this equation of $O(k\frac{n}{k}d) = O(nd)$. We now replace $\mathbf{w}$:
+$$= \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} (\mathbf{y_{i}} - ((\mathbf{X}_{-i}^T\mathbf{X}_{-i})^{-1}\mathbf{X}_{-i}^T\mathbf{y}_{-i})^T \mathbf{X_{i}})_j^2$$
+$\mathbf{W}$ needs to be computed for each of the k-folds, leading to an addition of $O(kd^3)$, or $O(knd^2)$ if $n$ is much larger than $d$.
+Therefore, solving the above equation requires $O(nd+knd^2) = O(knd^2)$.
+\\\\
+
+(e)\\
+We will re-write part of the formulation for the k-fold error in (d) to help with the overall proof. By the Woodbury matrix identity 
+$${\displaystyle \left(A+UCV\right)^{-1}=A^{-1}-A^{-1}U\left(C^{-1}+VA^{-1}U\right)^{-1}VA^{-1},}$$
+
+where $A, U, C$ and $V$ all denote matrices of the correct (conformable) sizes. Source: \url{https://en.wikipedia.org/wiki/Woodbury_matrix_identity}. 
+and $\sum_{i}^{k}X_i^{\top}X_i = X^{\top}X$ we have,
+
+\begin{align*}
+    \left(\textbf{X}_{-i}^{\top} \textbf{X}_{-i}\right)^{-1} &=\left(\textbf{X}^{\top} \textbf{X}-\textbf{X}_{i}^{\top} \textbf{X}_{i}\right)^{-1} \\
+    &=\left(\textbf{X}^{\top} \textbf{X}\right)^{-1}+\frac{\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{i}^{\top} \textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1}}{1-\textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{i}^{\top}}
+\end{align*}
+    
+Then adding the $\textbf{X}_{-i}^{\top}$ term to our product we have,
+\begin{align*}
+    \left(\textbf{X}_{-i}^{\top} \textbf{X}_{-i}\right)^{-1} \textbf{X}_{-i}^{\top} &=\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{-i}^{\top}+\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{-i}^{\top}\left(\frac{\textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{-i}^{\top}}{1-\textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{i}^{\top}}\right) \\
+    &=\left(\frac{\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{-i}^{\top}}{1-\textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{i}^{\top}}\right)
+\end{align*}
+
+Given $\textbf{w}^{*} = (\textbf{X}^{\top} \textbf{X})^{-1} \textbf{X}^{\top}\textbf{y}$, substituting the above result into our original expression, we get,
+
+\begin{align*}
+    \mathrm{error}_{k-fold} &= \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} \left(\mathbf{y_i} - ((\mathbf{X}_{-i}^T\mathbf{X}_{-i})^{-1}\mathbf{X}_{-i}^T\mathbf{y}_{-i})^T \mathbf{X_i}\right)_j^2\\
+    &= \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} \left(\frac{\mathbf{y_i} -  \mathbf{X_i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{-i}^{\top}\mathbf{y}_{-i}}{1-\textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{i}^{\top}}\right)_j^2\\
+    &= \frac{1}{k}\sum_{i=1}^k \frac{1}{n/k} \sum_{j \in \text{ind}[i]} \left(\frac{\mathbf{y_i} -  \mathbf{X_i}\textbf{w}^{*}}{1-\textbf{X}_{i}\left(\textbf{X}^{\top} \textbf{X}\right)^{-1} \textbf{X}_{i}^{\top}}\right)_j^2 \qquad \qquad\square \\
+\end{align*}
+
+\newpage
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+(a)\\
+$$x' = sin(\pi x)$$
+This works since everything between 0 and 1, 2 and 3 will be positive, while everything between 2 and 3 will be negative (and thus linearly separable)
+\\\\
+(b)\\
+$$x' = x_1x_2$$
+Everything in the top-right and bottom-left quadrants will become positive, and the two remaining quadrants will become negative.
+\\\\
+(c)\\
+$$x' = (x_1 - 2)(x_2 - 3)$$
+The kernel would be:
+$$K(\mathbf{x}_1,\mathbf{x}_2) = \langle \phi(\mathbf{x}_1),\phi(\mathbf{x}_2) \rangle$$
+For this we could simply use the polynomial kernel of degree 2, which contain terms such as $x_1x_2$ and linear terms.
+
+$$= (r+\langle \mathbf{x_1}, \mathbf{x_2}\rangle)^2$$
+\end{homeworkProblem}
+
+\end{document}

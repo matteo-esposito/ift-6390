@@ -1,0 +1,160 @@
+\section*{\enfr{One-versus-all, L2 loss SVM}{Un-contre-tous, Perte L2 SVM}}
+
+\enfr{
+This part consists of the implementation of a one-versus-all, L2 SVM Loss, which is commonly used for multiclass classification. The L2 loss is differentiable and imposes a bigger penalty on points that violate the margin. In the one-versus-all (OVA) approach, we train $m$ binary classifiers, one for each class. At inference time, we select the class which classifies the test data with maximum margin.
+
+Given a training set $S = \{(\mathbf{x}_i, y_i) \}_{i=1}^n$, where $\mathbf{x}_i \in \mathbbm{R}^p$, $y_i \in \{1,..,m\}$ where $p$ is the number of features and $m$ is the number of classes, we would like to minimize the following objective function:
+\begin{equation*}
+ \frac{1}{n}\sum_{(\mathbf{x}_i, y_i) \in S} \sum_{j'=1}^{m} \mathcal{L}(\mathbf{w}^{j'}; (\mathbf{x}_i, y_i))^2 + \frac{C}{2}\sum_{j'=1}^{m} \lVert \mathbf{w}^{j'} \rVert_2^2
+\end{equation*}
+where
+\begin{equation*}
+\mathcal{L}(\mathbf{w}^{j'}; (\mathbf{x}_i, y_i)) = \text{max}\{0, 2 - (\langle \mathbf{w}^{j'}, \mathbf{x}_i \rangle)\mathbbm{1}\{y_i=j'\}  \}
+\end{equation*}
+and
+\begin{equation*}
+    \mathbbm{1}\{y_i=j'\} = \left\{ \begin{array}{rl}
+            1 &\mbox{ if $y_i=j'$ } \\
+            -1 &\mbox{ if $y_i \neq j'$ }
+            \end{array} \right.
+\end{equation*}
+
+In order to update the parameters $\mathbf{w}$ of the SVM, gradient descent techniques are used. (Note: in the dataset provided with this assignment, the last element of each row is a dummy element with the value $1$. That means there is no separate bias parameter $b$; it is implicitly included in $\mathbf{w}$ as the weight for the dummy element.) 
+
+The training set for this part can be downloaded from \url{https://drive.google.com/file/d/1Z5wfMe5DOLWTMDQXLGNbuwOY7z6Kk31D/view?usp=sharing}.
+
+The solution template file contains a function to load the data and do some preprecessing for you such as normalization. There are four files, one for the training features, training labels, test features and test labels.
+
+}{
+Cette partie consiste à implémenter le SVM un-contre-tous avec pénalité L2, qui est couramment utilisé pour faire de la classification multi-classe. La fonction de perte d'un SVM avec pénalité L2 est différentiable et impose une plus grande pénalité sur les points qui sont à l'intérieur de la marge maximale. Dans l'approche un-contre-tous (\textit{one-versus-all} ou \textit{OVA} en anglais), nous entraînons $m$ classificateurs binaires, soit un pour chaque classe, et lors de la prédiction, nous sélectionnons la classe qui maximise la marge pour un point test.
+
+Considérant un jeu d'entraînement $S = \{(\mathbf{x}_i, y_i) \}_{i=1}^n$, où $\mathbf{x}_i \in \mathbbm{R}^p$, $y_i \in \{1,..,m\}$, $p$ est le nombre de traits (ou attributs) et $m$ est le nombre de classes, nous voulons minimiser la fonction objectif suivante:
+
+\begin{equation*}
+ \frac{1}{n}\sum_{(\mathbf{x}_i, y_i) \in S} \sum_{j'=1}^{m} \mathcal{L}(\mathbf{w}^{j'}; (\mathbf{x}_i, y_i))^2 + \frac{C}{2}\sum_{j'=1}^{m} \lVert \mathbf{w}^{j'} \rVert_2^2
+\end{equation*}
+où
+\begin{equation*}
+\mathcal{L}(\mathbf{w}^{j'}; (\mathbf{x}_i, y_i)) = \text{max}\{0, 2 - (\langle \mathbf{w}^{j'}, \mathbf{x}_i \rangle)\mathbbm{1}\{y_i=j'\}  \}
+\end{equation*}
+et
+\begin{equation*}
+    \mathbbm{1}\{y_i=j'\} = \left\{ \begin{array}{rl}
+            1 &\mbox{ if $y_i=j'$ } \\
+            -1 &\mbox{ if $y_i \neq j'$ }
+            \end{array} \right.
+\end{equation*}
+
+Afin de mettre à jour les paramètres $\mathbf{w}$ de notre fonction objectif, nous utiliserons des techniques de descente de gradient. (Note: Vous remarquerez que dans le jeu de données fourni pour cette partie, le dernier élément de chaque ligne est un $1$. Cette notation permet de ne pas avoir de paramètre de biais $b$ séparé, mais plutôt de l'inclure implicitement dans $\mathbf{w}$ comme étant un autre poids.)
+
+Ce jeu de données peut être téléchargé à partir du lien suivant: \url{https://drive.google.com/file/d/1Z5wfMe5DOLWTMDQXLGNbuwOY7z6Kk31D/view?usp=sharing}.
+}
+Le fichier solution contient une fonction pour lire et effectuer quelques transformations sur les données telle que la normalization. Quatre fichiers sont disponible, les \textit{features} pour le jeu de données d'entraînement, un pour les cibles d'entraînement, un pour les \textit{features} de test ainsi que les cibles.
+\begin{enumerate}
+\item
+\question{\enfr{[5 pts] What is the derivative of the regularization term}{[5 pts] Quelle est la dérivée du terme de régularisation de la fonction de perte} 
+\begin{equation*}
+    \frac{C}{2}\sum_{j'=1}^{m} \lVert \mathbf{w}^{j'} \rVert_2^2
+\end{equation*}
+\enfr{
+with respect to $w_k^j$ (the $k$th weight of the weight vector for the $j$th class)? Show all your work and write your answer in the report. 
+}{
+par rapport à $w_k^j$? (le $k^{ième}$ poids du vecteur de poids pour la $j^{ième}$ classe)? Écrivez tous les étapes et mettez la réponse dans votre fichier PDF.
+}
+\\
+}
+
+\item
+\question{\enfr{[10 pts] What is the derivative of the hinge loss term }{[10 pts] Quelle est la dérivée du terme appelé \textit{hinge loss}}
+
+\begin{equation*}
+    \frac{1}{n}\sum_{(\mathbf{x}_i, y_i) \in S} \sum_{j'=1}^{m} \mathcal{L}(\mathbf{w}^{j'}; (\mathbf{x}_i, y_i))^2
+\end{equation*}
+\enfr{with respect to $w_k^j$?\\
+
+Express your answer in terms of $\mathbf{x}_{i,k}$ (the $k$th entry of the $i$th training example $\mathbf{x}_i$).
+
+Assume that 
+}{
+de la fonction de perte par rapport à $w_k^j$?\\
+
+Exprimez votre réponse en termes de $\mathbf{x}_{i,k}$ (la $k^{ième}$ entrée du $i^{ième}$ exemple $\mathbf{x}_i$).
+
+Assumez que
+}
+\begin{equation*}
+    \frac{\partial}{\partial a}\text{max}\{0,a\} = \left\{ \begin{array}{rl}
+            1 &\mbox{ if $a > 0$ } \\
+            0 &\mbox{ if $a \leq 0$}
+            \end{array} \right.
+\end{equation*}
+\enfr{
+(This is not exactly true: at $a=0$, the derivative is undefined. However, for this problem, it's OK to make this assumption.)
+}{
+(Cette dernière affirmation n'est pas exactement vraie: à a=0, la dérivée n'est pas définie. Cependant, pour ce problème, nous allons assumer qu'elle est correcte.)
+}
+
+}
+
+\item
+\question{ \enfr{[30 pts] Fill in the following in the code}{[30 pts] Complétez les méthodes suivantes dans le code:}\\
+    \begin{enumerate}
+        \item
+        \enfr{[5 pts] 
+        SVM.make\_one\_versus\_all\_labels: Given an array of integer labels and the number of classes $m$, this function should create a 2-d array corresponding to the $\mathbbm{1}\{y_i=j'\}$ term above. In this array, each row is filled with $-1$, except for the entry corresponding to the correct label, which should have the entry $1$. For example, if the array of labels is $[1,0,2]$ and $m = 4$, this function would return the following array:
+        $[[-1,1,-1,-1],[1,-1,-1,-1],[-1,-1,1,-1]]$.
+        
+        The inputs are $y$ (a numpy array of shape $(\text{number of labels,})$) and $m$ (an integer representing the number of classes), and the output should be a numpy array of shape $(\text{number of labels}, m)$. For this homework, $m$ will be $8$, but you should write this function to work for any $m > 2$. \\
+        }{
+        [5 pts] SVM.make\_one\_versus\_all\_labels: Étant donné un tableau d'étiquettes qui sont des entiers et le nombre de classes $m$, cette fonction devrait retourner un tableau 2-d qui correspond au terme $\mathbbm{1}\{y_i=j'\}$ défini plus haut. Dans ce tableau, chaque ligne contient des -1 à l'exception de l'élément qui correspond à la bonne classe et qui devrait être un 1. Par exemple, si le tableau que l'on donne en entrée est $[1,0,2]$ et que $m = 4$, la fonction retournera le tableau suivant:$[[-1,1,-1,-1],[1,-1,-1,-1],[-1,-1,1,-1]]$. Les entrées de la fonction sont $y$ (un tableau numpy de dimension (nombre de classes,)) et m (un entier représentant le nombre de classes), et la sortie devrait être un tableau numpy de dimension (nombre d'exemples, m). Pour ce devoir, $m$ sera égal à 8, mais vous devriez implémenter cette fonction pour qu'elle puisse fonctionner avec n'importe quel $m > 2$.
+        }   
+        
+        \item
+        \enfr{
+        [5 pts] SVM.compute\_loss: Given a minibatch of examples, this function should compute the loss function. The inputs are $x$ (a numpy array of shape $(\text{minibatch size}, 3073)$), $y$ (a numpy array of shape $(\text{minibatch size}, 8)$), and the output should be the computed loss, a single float. \\
+        }{
+        [5 pts] SVM.compute\_loss : Étant donné un minibatch d'exemples, cette fonction devrait calculer la perte. Les entrées de la fonction sont x (un tableau numpy de dimension (minibatch size, 3073)) et y (un tableau numpy de dimension (minibatch size, 8)) et la sortie devrait être la perte calculée, un scalaire.
+        } \\
+    
+        \item
+        \enfr{
+        [10 pts] SVM.compute\_gradient: Given a minibatch of examples, this function should compute the gradient of the loss function with respect to the parameters $\mathbf{w}$. The inputs are $X$ (a numpy array of shape $(\text{minibatch size}, 3073)$), $y$ (a numpy array of shape $(\text{minibatch size}, 8)$), and the output should be the computed gradient, a numpy array of shape $(3073, 8)$, the same shape as the parameter matrix $\mathbf{w}$. (Hint: use the expressions you derived above.) 
+        }{
+        [10 pts] SVM.compute\_gradient:  Considérant un minibatch d'exemples, cette fonction devrait calculer le gradient de la fonction de perte par rapport au paramètre $\mathbf{w}$. Les entrées de la fonction sont $X$ (un tableau numpy de dimension $(\text{minibatch size}, 3073)$) et $y$ (un tableau numpy de dimension $(\text{minibatch size}, 8)$) et la sortie devrait être le gradient calculé, un tableau numpy de dimension $(3073, 8)$, soit la même dimension que celle du paramètre $\mathbf{w}$. (Indice: utilisez les expressions que vous avez dérivées précédemment.)
+        } \\
+        
+        \item
+        \enfr{
+        [5 pts] SVM.infer: Given a minibatch of examples, this function should infer the class for each example, i.e. which class has the highest score. The input is $X$ (a numpy array of shape $(\text{minibatch size}, 3073)$ ), and the output is $y\_\textit{inferred}$ (a numpy array of shape $(\text{minibatch size}, 8)$). The output should be in the one-versus-all format, i.e. $-1$ for each class other than the inferred class, and $+1$ for the inferred class.\\
+        }{
+        [5 pts] SVM.infer: Étant donné un minibatch d'exemples, cette fonction devrait prédire la classe de chaque exemple, c'est-à-dire la classe qui a le plus haut score. L'entrée de la fonction est $X$ (un tableau numpy de dimension $(\text{minibatch size}, 3073)$) et la sortie est $y\_\textit{inferred}$ (un tableau numpy de dimension $(\text{minibatch size}, 8)$). La sortie devrait être en format un-contre-tous, c'est-à-dire -1 pour les classes qui ne sont pas prédites et +1 pour la classe prédite.
+        }
+        
+        \item
+        \enfr{
+        [5 pts] SVM.compute\_accuracy: Given an array of inferred labels and an array of true labels, this function should output the accuracy as a float between $0$ and $1$. The inputs are $y\_\textit{inferred}$ (a numpy array of shape $(\text{minibatch size}, 8)$) and $y$ (a numpy array of shape $(\text{minibatch size}, 8)$), and the output is a single float.\\
+        }{
+        [5 pts] SVM.compute\_accuracy: Étant donné un tableau de classes prédites et un tableau des vraies classes, cette fonction devrait retourner la proportion de classifications correctes, soit un scalaire entre $0$ et $1$. Les entrées de cette fonction sont $y\_\textit{inferred}$ (un tableau numpy de dimension $(\text{minibatch size}, 8)$) et $y$ (un tableau numpy de dimension $(\text{minibatch size}, 8)$) et la sortie est un scalaire.
+        }
+        
+
+    \end{enumerate}
+}
+
+\item
+    \question{\enfr{[5 pts] The method SVM.fit uses the code you wrote above to train the SVM. After each epoch (one pass through the training set), SVM.fit computes the training loss, the training accuracy, the test loss, and the test accuracy.
+    
+    Plot the value of these four quantities for every epoch for $C = 0.1, 1, 30, 50$. Use $200$ epochs, a learning rate of $0.001$, and a minibatch size of $5000$.
+    
+    You should have four plots: one for each quantity, with the curves for all four values of $C$. Include these four plots in your report.  \\
+    
+    }{[5 pts] La méthode SVM.fit utilise le code que vous avez écris ci-dessus pour entraîner le SVM. Après chaque époque (après avoir passer à travers tous les exemples du jeu de données), SVM.fit calcule la perte et l'exactitude des points d'entraînement et la perte et l'exactitude des points tests.
+    
+    Faites le graphique de ces quatre quantités en fonction du nombre d'époques, pour $C= 0.1, 1, 30, 50$. Utilisez comme hyperparamètres 200 époques, un taux d'apprentissage de 0.001 et une longueur de minibatch de 5000.
+    
+    Vous devriez avoir 4 graphiques, soit un graphique pour chaque quantité, incluant les courbes pour les 4 valeurs de C. Ajoutez ces 4 graphiques dans votre rapport.
+    }
+    
+    }
+
+\end{enumerate}

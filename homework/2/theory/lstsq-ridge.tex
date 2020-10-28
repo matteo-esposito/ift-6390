@@ -1,0 +1,86 @@
+\item  {
+\textbf {\enfr{Least Squares Estimator and Ridge Regression }{Estimateur par méthode des moindres carrés et régression ridge}}
+}\label{ex.lstsq.ridge}
+\points{10}{10}
+
+    \enfr{
+    We consider the problem of learning a vector-valued function $f:\R^d\to\R^p$ from input-output training data $\{(\x_i,\y_i)\}_{i=1}^n$ where each $\x_i$ is 
+    a $d$-dimensional vector and each $\y_i$ is a $p$-dimensional vector. We choose our hypothesis class to be the set of linear functions from $\R^d$ to $\R^p$, that is function 
+    satisfying $f(\x) = \W^\top\x$ for some $d\times p$ regression matrix $\W$, and we want to minimize the squared error loss function 
+    \begin{equation}\label{pbm.LRR}
+    J(\W)= \sum_{i=1}^n \norm{\y_i - \W^\top\x_i}^2_2
+    \end{equation}
+    over the training data.
+    
+    Let $\W^*$ be the minimizer of the empirical risk:
+    $$\W^* = \argmin_{\W\in\R^{d\times p}} J(\W).$$
+    
+    }{
+    Nous étudions le problème de l'apprentissage d'une fonction vectorielle $f:\R^d\to\R^p$ à partir de données d'entrée/sortie $\{(\x_i,\y_i)\}_{i=1}^n$ où chacun des $\x_i$ est un vecteur de dimension $d$ et chacun des $\y_i$ est un vecteur de dimension $p$. Notre classe d'hypothèse est l'ensemble des applications linéaires de $\R^d$ dans $\R^p$, c'est-à-dire les fonctions qui s'écrivent  $f(\x) = \W^\top\x$ où $\W$ est une matrice de taille $d\times p$, et nous cherchons à minimiser l'erreur quadratique 
+    \begin{equation}\label{pbm.LRR}
+    J(\W)= \sum_{i=1}^n \norm{\y_i - \W^\top\x_i}^2_2
+    \end{equation}
+    sur les données d'entraînement.
+    
+    Notons $\W^*$ le minimiseur du risque empirique
+    $$\W^* = \argmin_{\W\in\R^{d\times p}} J(\W).$$
+    }
+    
+\begin{enumerate}
+
+\item{
+    \enfr{Derive a closed-form solution for $\W^*$ as a function of the  data matrices $\X\in\R^{n\times d}$ and $\Y\in\R^{n\times p}$.\\
+    \textit{(hint: once you have expressed $J(\W)$ as a function of $\X$ and $\Y$, you may find the \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{matrix cookbook} useful to compute gradients w.r.t. to the matrix $\W$)}
+    }{
+    Donnez une expression analytique de $\W^*$ en fonction des matrices $\X\in\R^{n\times d}$ et $\Y\in\R^{n\times p}$.\\
+    \textit{(suggestion: lorsque vous aurez exprimé $J(\W)$ en fonction de $\X$ et $\Y$, vous pourrez vous aider du \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{matrix cookbook} pour obtenir le gradient par rapport à la matrice $\W$)}
+    }
+
+\end{enumerate}
+    
+\textbf{Rigde regression}
+
+\enfr{
+A variation of the least squares estimation problem known as \emph{ridge regression} considers the following optimization problem:
+\begin{equation}
+\argmin_{\bf{W}}
+  J(\bf{W})
+  +  \lambda \lVert {\bf{W}} \rVert_F^2
+\label{eq:RR}
+\end{equation}
+where $\lambda>0$ is a regularization parameter. The regularizing term penalizes large components in ${\bf W}$ which causes the optimal ${\bf W}$ to have a smaller norm.
+}{
+Une des variations de la méthode des moindres carrés, connue sous le nom \emph{régression ridge}, considère plutôt le problème d'optimisation suivant:
+\begin{equation}
+\argmin_{\bf{W}}
+  J(\bf{W})
+  +  \lambda \lVert {\bf{W}} \rVert_F^2
+\label{eq:RR}
+\end{equation}
+où $\lambda>0$ est un hyperparamètre de régularisation. Cette régularisation pénalise les composantes trop élevées de ${\bf W}$, ce qui force le ${\bf W}$ optimal à avoir une norme plus petite.
+}
+
+\begin{enumerate}[resume]
+    \item{  
+    \enfr{
+    Derive the solution of the ridge regression problem. Do we still have to worry about the invertibility of $\X^\top \X$? 
+    }{
+    Donnez la solution du problème de régression ridge. Doit-on toujours faire attention à l'inversibilité de $\X^\top \X$?
+    }
+    }
+    \item{
+    \enfr{
+    Explain why the ridge regression estimator is likely to be more robust to issues of high variance compared with the least squares estimator. 
+    }{
+    Expliquez pourquoi l'estimateur régression ridge sera probablement plus robuste à des problèmes de variance trop élevée que l'estimateur par moindres carrés.
+    }
+    }
+    \item{ 
+    \enfr{
+    How does the value of $\lambda$ affect the bias and the variance of the estimator? 
+    }{
+    Quel sera l'effet de $\lambda$ sur le biais et la variance de l'estimateur?
+    }
+    }
+        
+\end{enumerate}
