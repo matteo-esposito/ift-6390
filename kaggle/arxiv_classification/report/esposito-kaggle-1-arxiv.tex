@@ -137,7 +137,7 @@ This report will cover the efforts related to the classification of articles on 
 
 \medskip
 
-More specifically, given the abstract of several thousand papers, our goal was to classify them into one of the following categories: astro-ph.GA, math.AP, astro-ph.CO, math.CO, stat.ML, cs.LG, gr-qc, astro-ph, astro-ph.SR, hep-th, physics.optics, hep-ph, cond-mat.mtrl-sci, cond-mat.mes-hall, quant-ph
+More specifically, given the abstract of several thousand papers, our goal was to classify them into one of the following categories: astro-ph.GA, math.AP, astro-ph.CO, math.CO, stat.ML, cs.LG, gr-qc, astro-ph, astro-ph.SR, hep-th, physics.optics, hep-ph, cond-mat.mtrl-sci, cond-mat.mes-hall, quant-ph.
 
 \section{Feature Design}
 
@@ -145,7 +145,7 @@ Since at the lowest level we were interested in the count of unique words in our
 
 \medskip
 
-\underline{Note:} All cleaning functions were implemented using the following syntax (adapted from the TA's notebook): 
+\underline{Note:} All cleaning functions were implemented using the following syntax (adapted from the TA's OH notebook): 
 
 \begin{verbatim}
     df[t] = df[t].apply(lambda x : re.sub("<regex pattern>", " ", x))
