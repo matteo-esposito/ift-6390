@@ -424,3 +424,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+kaggle/notebooks/
+*.csv
