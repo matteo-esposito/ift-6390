@@ -1,2 +1,2 @@
 # ift-6390
-Fundamentals of ML | MILA | Fall 2020
+Fundamentals of Machine Learning | MILA | Fall 2020
